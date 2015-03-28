@@ -9,5 +9,26 @@
  * @author Kenny
  */
 public class PruebasUnitarias {
+    public static void correrPruebasUnitarias() {
+        probarMaterial();
+        probarPersonal();
+        probarProyecto();
+        probarContrato();
+    }
     
+    private static void probarMaterial() {
+        
+    }
+    
+    private static void probarPersonal() {
+        
+    }
+    
+    private static void probarProyecto() {
+        
+    }
+    
+    private static void probarContrato() {
+        
+    }
 }
