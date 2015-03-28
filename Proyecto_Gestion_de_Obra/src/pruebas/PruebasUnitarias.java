@@ -10,6 +10,8 @@
  */
 package pruebas;
 
+import DP.PersonalDP;
+
 public class PruebasUnitarias {
     public static void correrPruebasUnitarias() {
         probarMaterial();
@@ -23,7 +25,10 @@ public class PruebasUnitarias {
     }
     
     private static void probarPersonal() {
-        
+        String clase = "DP.PersonalDP, ";
+        PersonalDP personal = new PersonalDP();
+        personal.cargarPorCedula("0");
+        // TODO: completar
     }
     
     private static void probarProyecto() {

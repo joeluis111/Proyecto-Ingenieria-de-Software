@@ -200,4 +200,8 @@ public class PersonalDP {
     public void setCertificados(IIOImage valor) {
         certificados = valor;
     }
+    
+    public void cargarPorCedula(String cedula) {
+        // TODO: Completar este metodo
+    }
 }
