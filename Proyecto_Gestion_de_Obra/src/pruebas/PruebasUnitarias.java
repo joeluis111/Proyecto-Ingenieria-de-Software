@@ -8,6 +8,8 @@
  *
  * @author Kenny
  */
+package pruebas;
+
 public class PruebasUnitarias {
     public static void correrPruebasUnitarias() {
         probarMaterial();
