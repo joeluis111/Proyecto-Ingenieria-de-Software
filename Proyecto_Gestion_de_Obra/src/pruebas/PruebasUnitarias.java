@@ -10,16 +10,12 @@
  */
 package pruebas;
 
-import DP.PersonalDP;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
 
 @ManagedBean(name="PruebasUnitarias")
 @SessionScoped
@@ -37,9 +33,6 @@ public class PruebasUnitarias {
     }
     
     private static void probarPersonal() {
-        String clase = "DP.PersonalDP, ";
-        PersonalDP personal = new PersonalDP();
-        personal.cargarPorCedula("0");
         PrintWriter bitacora = null;
         try {
             bitacora = new PrintWriter("C:\\Users\\Kenny\\Documents\\GitHub\\Proyecto-Ingenieria-de-Software\\Proyecto_Gestion_de_Obra\\pruebasUnitarias.txt");
