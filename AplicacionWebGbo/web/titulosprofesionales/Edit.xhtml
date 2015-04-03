@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTitulosprofesionalesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTitulosprofesionalesLabel_tituloProfesionalID}" for="tituloProfesionalID" />
+                    <h:inputText id="tituloProfesionalID" value="#{titulosprofesionalesController.selected.tituloProfesionalID}" title="#{bundle.EditTitulosprofesionalesTitle_tituloProfesionalID}" required="true" requiredMessage="#{bundle.EditTitulosprofesionalesRequiredMessage_tituloProfesionalID}"/>
+                    <h:outputLabel value="#{bundle.EditTitulosprofesionalesLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{titulosprofesionalesController.selected.nombre}" title="#{bundle.EditTitulosprofesionalesTitle_nombre}" />
+                </h:panelGrid>
+                <h:commandLink action="#{titulosprofesionalesController.update}" value="#{bundle.EditTitulosprofesionalesSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTitulosprofesionalesViewLink}"/>
+                <br />
+                <h:commandLink action="#{titulosprofesionalesController.prepareList}" value="#{bundle.EditTitulosprofesionalesShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTitulosprofesionalesIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditContratosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditContratosLabel_contratoID}" for="contratoID" />
+                    <h:inputText id="contratoID" value="#{contratosController.selected.contratoID}" title="#{bundle.EditContratosTitle_contratoID}" required="true" requiredMessage="#{bundle.EditContratosRequiredMessage_contratoID}"/>
+                    <h:outputLabel value="#{bundle.EditContratosLabel_textoContrato}" for="textoContrato" />
+                    <h:inputTextarea rows="4" cols="30" id="textoContrato" value="#{contratosController.selected.textoContrato}" title="#{bundle.EditContratosTitle_textoContrato}" required="true" requiredMessage="#{bundle.EditContratosRequiredMessage_textoContrato}"/>
+                </h:panelGrid>
+                <h:commandLink action="#{contratosController.update}" value="#{bundle.EditContratosSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditContratosViewLink}"/>
+                <br />
+                <h:commandLink action="#{contratosController.prepareList}" value="#{bundle.EditContratosShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditContratosIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

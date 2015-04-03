@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateHistoriainventariaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateHistoriainventariaLabel_historiainventariaPK_fechaUso}" for="historiainventariaPK_fechaUso" />
+                    <h:inputText id="historiainventariaPK_fechaUso" value="#{historiainventariaController.selected.historiainventariaPK.fechaUso}" title="#{bundle.CreateHistoriainventariaTitle_historiainventariaPK_fechaUso}" required="true" requiredMessage="#{bundle.CreateHistoriainventariaRequiredMessage_historiainventariaPK_fechaUso}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateHistoriainventariaLabel_numeroUsado}" for="numeroUsado" />
+                    <h:inputText id="numeroUsado" value="#{historiainventariaController.selected.numeroUsado}" title="#{bundle.CreateHistoriainventariaTitle_numeroUsado}" required="true" requiredMessage="#{bundle.CreateHistoriainventariaRequiredMessage_numeroUsado}"/>
+                    <h:outputLabel value="#{bundle.CreateHistoriainventariaLabel_proyectos}" for="proyectos" />
+                    <h:selectOneMenu id="proyectos" value="#{historiainventariaController.selected.proyectos}" title="#{bundle.CreateHistoriainventariaTitle_proyectos}" required="true" requiredMessage="#{bundle.CreateHistoriainventariaRequiredMessage_proyectos}">
+                        <f:selectItems value="#{proyectosController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateHistoriainventariaLabel_materiales}" for="materiales" />
+                    <h:selectOneMenu id="materiales" value="#{historiainventariaController.selected.materiales}" title="#{bundle.CreateHistoriainventariaTitle_materiales}" required="true" requiredMessage="#{bundle.CreateHistoriainventariaRequiredMessage_materiales}">
+                        <f:selectItems value="#{materialesController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{historiainventariaController.create}" value="#{bundle.CreateHistoriainventariaSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{historiainventariaController.prepareList}" value="#{bundle.CreateHistoriainventariaShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateHistoriainventariaIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

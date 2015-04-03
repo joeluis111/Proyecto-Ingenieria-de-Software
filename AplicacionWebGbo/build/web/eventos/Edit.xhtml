@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditEventosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditEventosLabel_eventoID}" for="eventoID" />
+                    <h:inputText id="eventoID" value="#{eventosController.selected.eventoID}" title="#{bundle.EditEventosTitle_eventoID}" required="true" requiredMessage="#{bundle.EditEventosRequiredMessage_eventoID}"/>
+                    <h:outputLabel value="#{bundle.EditEventosLabel_nombre}" for="nombre" />
+                    <h:inputText id="nombre" value="#{eventosController.selected.nombre}" title="#{bundle.EditEventosTitle_nombre}" required="true" requiredMessage="#{bundle.EditEventosRequiredMessage_nombre}"/>
+                    <h:outputLabel value="#{bundle.EditEventosLabel_descripcion}" for="descripcion" />
+                    <h:inputTextarea rows="4" cols="30" id="descripcion" value="#{eventosController.selected.descripcion}" title="#{bundle.EditEventosTitle_descripcion}" required="true" requiredMessage="#{bundle.EditEventosRequiredMessage_descripcion}"/>
+                    <h:outputLabel value="#{bundle.EditEventosLabel_fechaInicioReal}" for="fechaInicioReal" />
+                    <h:inputText id="fechaInicioReal" value="#{eventosController.selected.fechaInicioReal}" title="#{bundle.EditEventosTitle_fechaInicioReal}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditEventosLabel_fechaTerminacionReal}" for="fechaTerminacionReal" />
+                    <h:inputText id="fechaTerminacionReal" value="#{eventosController.selected.fechaTerminacionReal}" title="#{bundle.EditEventosTitle_fechaTerminacionReal}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditEventosLabel_fechaInicioPlaneada}" for="fechaInicioPlaneada" />
+                    <h:inputText id="fechaInicioPlaneada" value="#{eventosController.selected.fechaInicioPlaneada}" title="#{bundle.EditEventosTitle_fechaInicioPlaneada}" required="true" requiredMessage="#{bundle.EditEventosRequiredMessage_fechaInicioPlaneada}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditEventosLabel_fechaTerminacionPlaneada}" for="fechaTerminacionPlaneada" />
+                    <h:inputText id="fechaTerminacionPlaneada" value="#{eventosController.selected.fechaTerminacionPlaneada}" title="#{bundle.EditEventosTitle_fechaTerminacionPlaneada}" required="true" requiredMessage="#{bundle.EditEventosRequiredMessage_fechaTerminacionPlaneada}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditEventosLabel_calendarioID}" for="calendarioID" />
+                    <h:selectOneMenu id="calendarioID" value="#{eventosController.selected.calendarioID}" title="#{bundle.EditEventosTitle_calendarioID}" required="true" requiredMessage="#{bundle.EditEventosRequiredMessage_calendarioID}">
+                        <f:selectItems value="#{calendariosController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{eventosController.update}" value="#{bundle.EditEventosSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditEventosViewLink}"/>
+                <br />
+                <h:commandLink action="#{eventosController.prepareList}" value="#{bundle.EditEventosShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditEventosIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

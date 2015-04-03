@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewProyectosTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewProyectosLabel_proyectoID}"/>
+                    <h:outputText value="#{proyectosController.selected.proyectoID}" title="#{bundle.ViewProyectosTitle_proyectoID}"/>
+                    <h:outputText value="#{bundle.ViewProyectosLabel_fechaInicio}"/>
+                    <h:outputText value="#{proyectosController.selected.fechaInicio}" title="#{bundle.ViewProyectosTitle_fechaInicio}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewProyectosLabel_fechaTerminacion}"/>
+                    <h:outputText value="#{proyectosController.selected.fechaTerminacion}" title="#{bundle.ViewProyectosTitle_fechaTerminacion}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewProyectosLabel_calendarioID}"/>
+                    <h:outputText value="#{proyectosController.selected.calendarioID}" title="#{bundle.ViewProyectosTitle_calendarioID}"/>
+                    <h:outputText value="#{bundle.ViewProyectosLabel_contratoID}"/>
+                    <h:outputText value="#{proyectosController.selected.contratoID}" title="#{bundle.ViewProyectosTitle_contratoID}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{proyectosController.destroyAndView}" value="#{bundle.ViewProyectosDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewProyectosEditLink}"/>
+                <br />
+                <h:commandLink action="#{proyectosController.prepareCreate}" value="#{bundle.ViewProyectosCreateLink}" />
+                <br />
+                <h:commandLink action="#{proyectosController.prepareList}" value="#{bundle.ViewProyectosShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewProyectosIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
