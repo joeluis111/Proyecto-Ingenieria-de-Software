@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="/template.xhtml">
         <ui:define name="title">
@@ -13,6 +14,8 @@
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
+           <p:tabView>   
+           <p:tab title="Datos Calendario">
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputText value="#{bundle.ViewCalendariosLabel_calendarioID}"/>
@@ -34,6 +37,9 @@
                 <h:link outcome="/index" value="#{bundle.ViewCalendariosIndexLink}"/>
 
             </h:form>
+                </p:tab>
+                </p:tabView>   
+            
         </ui:define>
     </ui:composition>
 
