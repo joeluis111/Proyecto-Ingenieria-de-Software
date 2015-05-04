@@ -51,12 +51,10 @@ public class EmpleadoGUI extends GUIAbstracta implements Serializable {
      */
     public EmpleadoGUI() {
     }
-    
-    @PostConstruct
-    public void init() {
-        
-    }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void guardarFacades(Collection<AbstractFacade> facades) {
         Iterator<AbstractFacade> iterador = facades.iterator();
@@ -76,6 +74,9 @@ public class EmpleadoGUI extends GUIAbstracta implements Serializable {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void generarMenuDeVista(final HtmlPanelGroup menu, ActionEvent e) {
         menu.getChildren().clear();
@@ -176,6 +177,9 @@ public class EmpleadoGUI extends GUIAbstracta implements Serializable {
         return cuadricula;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void generarMenuDeCreacion(HtmlPanelGroup menu, ActionEvent e) {
         menu.getChildren().clear();

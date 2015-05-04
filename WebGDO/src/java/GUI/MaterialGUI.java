@@ -44,12 +44,10 @@ public class MaterialGUI extends GUIAbstracta implements Serializable {
      */
     public MaterialGUI() {
     }
-    
-    @PostConstruct
-    public void init() {
-        
-    }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void guardarFacades(Collection<AbstractFacade> facades) {
         Iterator<AbstractFacade> iterador = facades.iterator();
@@ -68,11 +66,9 @@ public class MaterialGUI extends GUIAbstracta implements Serializable {
             }
         }
     }
-
+    
     /**
-     *
-     * @param menu
-     * @param e
+     * {@inheritDoc}
      */
     @Override
     protected void generarMenuDeVista(final HtmlPanelGroup menu, ActionEvent e) {
@@ -126,7 +122,10 @@ public class MaterialGUI extends GUIAbstracta implements Serializable {
         
         return cuadricula;
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void generarMenuDeCreacion(HtmlPanelGroup menu, ActionEvent e) {
         menu.getChildren().clear();

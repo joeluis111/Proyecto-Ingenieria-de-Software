@@ -10,11 +10,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.faces.application.Application;
 import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGrid;
-import javax.faces.component.html.HtmlCommandLink;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
@@ -31,6 +27,13 @@ public abstract class GUIAbstracta implements Serializable {
     public GUIAbstracta() {
     }
     
+    /**
+     * Genera el menú principal del manejo de la entidad.
+     * @param menu
+     * @param facades
+     * @param gui
+     * @param app
+     */
     public void generarMenu(final HtmlPanelGroup menu, Collection<AbstractFacade> facades, final PaginaPrincipalGUI gui, Application app) {
         guardarFacades(facades);
         guiPrincipal = gui;
@@ -67,7 +70,23 @@ public abstract class GUIAbstracta implements Serializable {
         menu.getChildren().add(cuadricula);
     }
     
+    /**
+     * Genera el menú de vista.
+     * @param menu
+     * @param evento
+     */
     protected abstract void generarMenuDeVista(HtmlPanelGroup menu, ActionEvent evento);
+    
+    /**
+     * Genera el menú de creación.
+     * @param menu
+     * @param evento
+     */
     protected abstract void generarMenuDeCreacion(HtmlPanelGroup menu, ActionEvent evento);
+    
+    /**
+     * Guarda los facades para acceder a la base de datos.
+     * @param facades
+     */
     protected abstract void guardarFacades(Collection<AbstractFacade> facades);
 }
