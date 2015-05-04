@@ -161,6 +161,18 @@ public class EmpleadoGUI extends GUIAbstracta implements Serializable {
         cuadricula.getChildren().add(UtilidadesGUI.crearTexto("Número de Teléfono"));
         cuadricula.getChildren().add(UtilidadesGUI.crearTexto(e.getEmpnumerotelefono()));
         
+        cuadricula.getChildren().add(crearBorrarEditar(e));
+        
+        return cuadricula;
+    }
+    
+    private UIComponent crearBorrarEditar(Empleado e) {
+        HtmlPanelGrid cuadricula = new HtmlPanelGrid();
+        cuadricula.setColumns(2);
+        
+        cuadricula.getChildren().add(UtilidadesGUI.crearBoton("Borrar"));
+        cuadricula.getChildren().add(UtilidadesGUI.crearBoton("Editar"));
+        
         return cuadricula;
     }
 

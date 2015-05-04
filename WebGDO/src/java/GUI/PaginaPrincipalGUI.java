@@ -11,8 +11,10 @@ import DP.EmpleadoFacade;
 import DP.InventarioFacade;
 import DP.MaterialFacade;
 import DP.ProyectoFacade;
+import DP.TipoMaterialFacade;
 import DP.TipoTrabajadorFacade;
 import DP.TituloProfesionalFacade;
+import DP.UnidadFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
@@ -60,6 +62,12 @@ public class PaginaPrincipalGUI implements Serializable {
     @EJB
     private TituloProfesionalFacade tituloProfesionalFacade;
     
+    @EJB
+    private TipoMaterialFacade tipoMaterialFacade;
+    
+    @EJB
+    private UnidadFacade unidadFacade;
+    
     /**
      * Creates a new instance of PaginaPrincipalGUI
      */
@@ -106,7 +114,9 @@ public class PaginaPrincipalGUI implements Serializable {
     
     public void manejarMateriales() {
         ArrayList<AbstractFacade> facades = new ArrayList();
-        facades.add(proyectoFacade);
+        facades.add(materialFacade);
+        facades.add(tipoMaterialFacade);
+        facades.add(unidadFacade);
         materialGUI.generarMenu(menu, facades, this, FacesContext.getCurrentInstance().getApplication());
         validate();
     }

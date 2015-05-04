@@ -7,6 +7,7 @@ package GUI;
 
 import javax.faces.component.html.HtmlOutputText;
 import org.primefaces.component.commandbutton.CommandButton;
+import org.primefaces.component.outputlabel.OutputLabel;
 
 /**
  *
@@ -24,5 +25,11 @@ public class UtilidadesGUI {
         HtmlOutputText t = new HtmlOutputText();
         t.setValue(s);
         return t;
+    }
+    
+    public static OutputLabel crearEtiqueta(Object s) {
+        OutputLabel o = new OutputLabel();
+        o.setValue(s);
+        return o;
     }
 }
