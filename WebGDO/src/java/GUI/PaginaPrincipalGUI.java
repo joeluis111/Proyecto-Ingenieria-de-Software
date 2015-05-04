@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.html.HtmlPanelGroup;
 import org.primefaces.context.RequestContext;
@@ -30,11 +28,11 @@ import org.primefaces.context.RequestContext;
 public class PaginaPrincipalGUI {
     private HtmlPanelGroup menu = new HtmlPanelGroup();
     
-    ClienteGUI clienteGUI = new ClienteGUI();
-    EmpleadoGUI empleadoGUI = new EmpleadoGUI();
-    InventarioGUI inventarioGUI = new InventarioGUI();
-    MaterialGUI materialGUI = new MaterialGUI();
-    ProyectoGUI proyectoGUI = new ProyectoGUI();
+    ClienteGUI clienteGUI;
+    EmpleadoGUI empleadoGUI;
+    InventarioGUI inventarioGUI;
+    MaterialGUI materialGUI;
+    ProyectoGUI proyectoGUI;
     
     @EJB
     ProyectoFacade proyectoFacade;
@@ -59,41 +57,51 @@ public class PaginaPrincipalGUI {
     
     @PostConstruct
     public void init() {
-        
+        try {
+            clienteGUI = new ClienteGUI();
+            empleadoGUI = new EmpleadoGUI();
+            inventarioGUI  = new InventarioGUI();
+            materialGUI = new MaterialGUI();
+            proyectoGUI = new ProyectoGUI();
+        }
+        catch (Exception e) {
+            System.err.println("Yes");
+            System.err.println(e);
+        }
     }
     
     public void manejarClientes() {
         ArrayList<AbstractFacade> facades = new ArrayList();
         facades.add(proyectoFacade);
-        clienteGUI.generarMenu(menu, facades);
+        clienteGUI.generarMenu(menu, facades, this);
         validate();
     }
     
     public void manejarEmpleados() {
         ArrayList<AbstractFacade> facades = new ArrayList();
-        facades.add(proyectoFacade);
-        empleadoGUI.generarMenu(menu, facades);
+        facades.add(empleadoFacade);
+        empleadoGUI.generarMenu(menu, facades, this);
         validate();
     }
     
     public void manejarInventario() {
         ArrayList<AbstractFacade> facades = new ArrayList();
         facades.add(proyectoFacade);
-        inventarioGUI.generarMenu(menu, facades);
+        inventarioGUI.generarMenu(menu, facades, this);
         validate();
     }
     
     public void manejarMateriales() {
         ArrayList<AbstractFacade> facades = new ArrayList();
         facades.add(proyectoFacade);
-        materialGUI.generarMenu(menu, facades);
+        materialGUI.generarMenu(menu, facades, this);
         validate();
     }
     
     public void manejarProyectos() {
         ArrayList<AbstractFacade> facades = new ArrayList();
         facades.add(proyectoFacade);
-        proyectoGUI.generarMenu(menu, facades);
+        proyectoGUI.generarMenu(menu, facades, this);
         validate();
     }
     

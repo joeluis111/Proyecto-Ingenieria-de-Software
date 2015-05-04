@@ -6,6 +6,7 @@
 package GUI;
 
 import DP.AbstractFacade;
+import java.io.Serializable;
 import java.util.Collection;
 import javax.annotation.PostConstruct;
 import javax.faces.component.html.HtmlPanelGroup;
@@ -15,7 +16,7 @@ import javax.faces.event.ActionEvent;
  *
  * @author Kenny
  */
-public class InventarioGUI extends GUIAbstracta {
+public class InventarioGUI extends GUIAbstracta implements Serializable {
     private HtmlPanelGroup menu;
     
     /**
@@ -31,7 +32,7 @@ public class InventarioGUI extends GUIAbstracta {
 
     @Override
     protected void guardarFacades(Collection<AbstractFacade> facades) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override

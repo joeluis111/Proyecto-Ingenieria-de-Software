@@ -15,6 +15,7 @@ import DP.ProyectoFacade;
 import MD.Calendario;
 import MD.Evento;
 import MD.Proyecto;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -23,12 +24,13 @@ import javax.faces.component.html.HtmlOutputText;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
+import org.primefaces.component.commandbutton.CommandButton;
 
 /**
  *
  * @author Kenny
  */
-public class ProyectoGUI extends GUIAbstracta {
+public class ProyectoGUI extends GUIAbstracta implements Serializable {
     ProyectoFacade proyectoFacade;
     
     /**
@@ -137,18 +139,16 @@ public class ProyectoGUI extends GUIAbstracta {
             HtmlOutputText nombre = new HtmlOutputText();
             nombre.setValue(p.getPronombre());
             
-            HtmlCommandLink editar = new HtmlCommandLink();
+            CommandButton editar = crearBotonDeVer();
             editar.addActionListener(new ActionListener() {
 
                 @Override
                 public void processAction(ActionEvent event) throws AbortProcessingException {
                     menu.getChildren().clear();
                     menu.getChildren().add(generarGantt(p.getProid(), proyectoFacade));
+                    guiPrincipal.validate();
                 }
             });
-            HtmlOutputText textoEditar = new HtmlOutputText();
-            textoEditar.setValue("Editar");
-            editar.getChildren().add(textoEditar);
             
             cuadricula.getChildren().add(id);
             cuadricula.getChildren().add(nombre);

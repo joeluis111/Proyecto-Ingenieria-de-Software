@@ -6,70 +6,80 @@
 package GUI;
 
 import DP.AbstractFacade;
+import java.io.Serializable;
 import java.util.Collection;
 import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.component.html.HtmlOutputLink;
-import javax.faces.component.ActionSource;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.component.html.HtmlCommandLink;
+import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
+import org.primefaces.component.commandbutton.CommandButton;
 
 /**
  *
  * @author Kenny
  */
-public abstract class GUIAbstracta {
+public abstract class GUIAbstracta implements Serializable {
+    protected PaginaPrincipalGUI guiPrincipal;
     
-    public void generarMenu(final HtmlPanelGroup menu, Collection<AbstractFacade> facades) {
+    public GUIAbstracta() {
+    }
+    
+    public void generarMenu(final HtmlPanelGroup menu, Collection<AbstractFacade> facades, final PaginaPrincipalGUI gui) {
         guardarFacades(facades);
+        guiPrincipal = gui;
         
         menu.getChildren().clear();
         HtmlPanelGrid cuadricula = new HtmlPanelGrid();
         cuadricula.setColumns(1);
         
-        HtmlCommandLink ver = new HtmlCommandLink();
-        HtmlOutputText textoVer = new HtmlOutputText();
-        textoVer.setValue("Ver");
+        CommandButton ver = new CommandButton();
+        ver.setValue("Ver");
         ver.addActionListener(new ActionListener() {
 
             @Override
             public void processAction(ActionEvent event) throws AbortProcessingException {
                 generarMenuDeVista(menu, event);
+                guiPrincipal.validate();
             }
         });
-        ver.getChildren().add(textoVer);
         
-        HtmlCommandLink crear = new HtmlCommandLink();
-        HtmlOutputText textoCrear = new HtmlOutputText();
-        textoCrear.setValue("Crear");
+        CommandButton crear = new CommandButton();
+        crear.setValue("Crear");
         crear.addActionListener(new ActionListener() {
 
             @Override
             public void processAction(ActionEvent event) throws AbortProcessingException {
                 generarMenuDeCreacion(menu, event);
+                guiPrincipal.validate();
             }
         });
-        crear.getChildren().add(textoCrear);
         
-        HtmlCommandLink editar = new HtmlCommandLink();
-        HtmlOutputText textoEditar = new HtmlOutputText();
-        textoEditar.setValue("Editar");
+        CommandButton editar = new CommandButton();
+        editar.setValue("Editar");
         editar.addActionListener(new ActionListener() {
 
             @Override
             public void processAction(ActionEvent event) throws AbortProcessingException {
                 generarMenuDeEdicion(menu, event);
+                guiPrincipal.validate();
             }
         });
-        editar.getChildren().add(textoEditar);
         
         cuadricula.getChildren().add(ver);
         cuadricula.getChildren().add(crear);
         cuadricula.getChildren().add(editar);
         menu.getChildren().add(cuadricula);
+    }
+    
+    protected CommandButton crearBotonDeVer() {
+        CommandButton ver = new CommandButton();
+        ver.setValue("Ver");
+        
+        return ver;
     }
     
     protected abstract void generarMenuDeVista(HtmlPanelGroup menu, ActionEvent evento);
