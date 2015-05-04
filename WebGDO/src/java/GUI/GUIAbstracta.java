@@ -75,13 +75,6 @@ public abstract class GUIAbstracta implements Serializable {
         menu.getChildren().add(cuadricula);
     }
     
-    protected CommandButton crearBotonDeVer() {
-        CommandButton ver = new CommandButton();
-        ver.setValue("Ver");
-        
-        return ver;
-    }
-    
     protected abstract void generarMenuDeVista(HtmlPanelGroup menu, ActionEvent evento);
     protected abstract void generarMenuDeCreacion(HtmlPanelGroup menu, ActionEvent evento);
     protected abstract void generarMenuDeEdicion(HtmlPanelGroup menu, ActionEvent evento);

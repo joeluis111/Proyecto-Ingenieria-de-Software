@@ -80,13 +80,14 @@ public class EmpleadoGUI extends GUIAbstracta implements Serializable {
         while (iterator.hasNext()) {
             final Empleado empleado = iterator.next();
             desplegarRegistro(empleado, cuadricula);
-            CommandButton ver = crearBotonDeVer();
+            CommandButton ver = UtilidadesGUI.crearBotonDeVer();
             ver.addActionListener(new ActionListener() {
 
                 @Override
                 public void processAction(ActionEvent event) throws AbortProcessingException {
                     menu.getChildren().clear();
                     menu.getChildren().add(desplegarADetalle(empleado));
+                    guiPrincipal.validate();
                 }
             });
             cuadricula.getChildren().add(ver);
@@ -112,6 +113,31 @@ public class EmpleadoGUI extends GUIAbstracta implements Serializable {
     
     private UIComponent desplegarADetalle(Empleado e) {
         HtmlPanelGrid cuadricula = new HtmlPanelGrid();
+        
+        cuadricula.setColumns(2);
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto("Cédula"));
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto(e.getEmpcedula()));
+        
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto("Nombres"));
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto(e.getEmpnombres()));
+        
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto("Apellidos"));
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto(e.getEmpapellidos()));
+        
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto("Código Postal"));
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto(e.getEmpcodigopostal()));
+        
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto("Dirección"));
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto(e.getEmpdireccion()));
+        
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto("Fecha de Nacimiento"));
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto(e.getEmpfechanacimiento()));
+        
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto("Género"));
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto(e.getEmpgenero()));
+        
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto("Número de Teléfono"));
+        cuadricula.getChildren().add(UtilidadesGUI.crearTexto(e.getEmpnumerotelefono()));
         
         return cuadricula;
     }

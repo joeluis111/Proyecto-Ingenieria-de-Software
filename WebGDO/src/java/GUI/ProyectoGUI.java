@@ -139,7 +139,7 @@ public class ProyectoGUI extends GUIAbstracta implements Serializable {
             HtmlOutputText nombre = new HtmlOutputText();
             nombre.setValue(p.getPronombre());
             
-            CommandButton editar = crearBotonDeVer();
+            CommandButton editar = UtilidadesGUI.crearBotonDeVer();
             editar.addActionListener(new ActionListener() {
 
                 @Override
