@@ -139,7 +139,7 @@ public class ProyectoGUI extends GUIAbstracta implements Serializable {
             HtmlOutputText nombre = new HtmlOutputText();
             nombre.setValue(p.getPronombre());
             
-            CommandButton editar = UtilidadesGUI.crearBotonDeVer();
+            CommandButton editar = UtilidadesGUI.crearBoton("Ver");
             editar.addActionListener(new ActionListener() {
 
                 @Override
@@ -159,11 +159,6 @@ public class ProyectoGUI extends GUIAbstracta implements Serializable {
 
     @Override
     protected void generarMenuDeCreacion(HtmlPanelGroup menu, ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void generarMenuDeEdicion(HtmlPanelGroup menu, ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

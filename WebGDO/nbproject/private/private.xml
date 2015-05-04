@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Kenny/Documents/NetBeansProjects/WebGDO/src/java/DP/AbstractFacade.java</file>
-            <file>file:/C:/Users/Kenny/Documents/NetBeansProjects/WebGDO/src/java/GUI/GUIAbstracta.java</file>
-            <file>file:/C:/Users/Kenny/Documents/NetBeansProjects/WebGDO/src/java/GUI/ProyectoGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/NetBeansProjects/WebGDO/src/java/GUI/ClienteGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/NetBeansProjects/WebGDO/src/java/GUI/MaterialGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/NetBeansProjects/WebGDO/src/java/GUI/EmpleadoGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/NetBeansProjects/WebGDO/src/java/GUI/PaginaPrincipalGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/NetBeansProjects/WebGDO/src/java/GUI/InventarioGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/NetBeansProjects/WebGDO/web/index.xhtml</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/conf/persistence.xml</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/InventarioGUI.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/UtilidadesGUI.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/ProyectoGUI.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/GUIAbstracta.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/EmpleadoGUI.java</file>
         </group>
     </open-files>
 </project-private>

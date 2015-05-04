@@ -8,11 +8,13 @@ package GUI;
 import DP.AbstractFacade;
 import java.io.Serializable;
 import java.util.Collection;
+import javax.faces.application.Application;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
@@ -24,13 +26,15 @@ import org.primefaces.component.commandbutton.CommandButton;
  */
 public abstract class GUIAbstracta implements Serializable {
     protected PaginaPrincipalGUI guiPrincipal;
+    protected Application application;
     
     public GUIAbstracta() {
     }
     
-    public void generarMenu(final HtmlPanelGroup menu, Collection<AbstractFacade> facades, final PaginaPrincipalGUI gui) {
+    public void generarMenu(final HtmlPanelGroup menu, Collection<AbstractFacade> facades, final PaginaPrincipalGUI gui, Application app) {
         guardarFacades(facades);
         guiPrincipal = gui;
+        application = app;
         
         menu.getChildren().clear();
         HtmlPanelGrid cuadricula = new HtmlPanelGrid();
@@ -58,25 +62,12 @@ public abstract class GUIAbstracta implements Serializable {
             }
         });
         
-        CommandButton editar = new CommandButton();
-        editar.setValue("Editar");
-        editar.addActionListener(new ActionListener() {
-
-            @Override
-            public void processAction(ActionEvent event) throws AbortProcessingException {
-                generarMenuDeEdicion(menu, event);
-                guiPrincipal.validate();
-            }
-        });
-        
         cuadricula.getChildren().add(ver);
         cuadricula.getChildren().add(crear);
-        cuadricula.getChildren().add(editar);
         menu.getChildren().add(cuadricula);
     }
     
     protected abstract void generarMenuDeVista(HtmlPanelGroup menu, ActionEvent evento);
     protected abstract void generarMenuDeCreacion(HtmlPanelGroup menu, ActionEvent evento);
-    protected abstract void generarMenuDeEdicion(HtmlPanelGroup menu, ActionEvent evento);
     protected abstract void guardarFacades(Collection<AbstractFacade> facades);
 }

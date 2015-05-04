@@ -11,12 +11,17 @@ import DP.EmpleadoFacade;
 import DP.InventarioFacade;
 import DP.MaterialFacade;
 import DP.ProyectoFacade;
+import DP.TipoTrabajadorFacade;
+import DP.TituloProfesionalFacade;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.html.HtmlPanelGroup;
+import javax.faces.context.FacesContext;
+import javax.faces.context.FacesContextFactory;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -25,29 +30,35 @@ import org.primefaces.context.RequestContext;
  */
 @ManagedBean
 @SessionScoped
-public class PaginaPrincipalGUI {
+public class PaginaPrincipalGUI implements Serializable {
     private HtmlPanelGroup menu = new HtmlPanelGroup();
     
-    ClienteGUI clienteGUI;
-    EmpleadoGUI empleadoGUI;
-    InventarioGUI inventarioGUI;
-    MaterialGUI materialGUI;
-    ProyectoGUI proyectoGUI;
+    private ClienteGUI clienteGUI;
+    private EmpleadoGUI empleadoGUI;
+    private InventarioGUI inventarioGUI;
+    private MaterialGUI materialGUI;
+    private ProyectoGUI proyectoGUI;
     
     @EJB
-    ProyectoFacade proyectoFacade;
+    private ProyectoFacade proyectoFacade;
     
     @EJB
-    ClienteFacade clienteFacade;
+    private ClienteFacade clienteFacade;
     
     @EJB
-    EmpleadoFacade empleadoFacade;
+    private EmpleadoFacade empleadoFacade;
     
     @EJB
-    InventarioFacade inventarioFacade;
+    private InventarioFacade inventarioFacade;
     
     @EJB
-    MaterialFacade materialFacade;
+    private MaterialFacade materialFacade;
+    
+    @EJB
+    private TipoTrabajadorFacade tipoTrabajadorFacade;
+    
+    @EJB
+    private TituloProfesionalFacade tituloProfesionalFacade;
     
     /**
      * Creates a new instance of PaginaPrincipalGUI
@@ -73,35 +84,37 @@ public class PaginaPrincipalGUI {
     public void manejarClientes() {
         ArrayList<AbstractFacade> facades = new ArrayList();
         facades.add(proyectoFacade);
-        clienteGUI.generarMenu(menu, facades, this);
+        clienteGUI.generarMenu(menu, facades, this, FacesContext.getCurrentInstance().getApplication());
         validate();
     }
     
     public void manejarEmpleados() {
         ArrayList<AbstractFacade> facades = new ArrayList();
         facades.add(empleadoFacade);
-        empleadoGUI.generarMenu(menu, facades, this);
+        facades.add(tipoTrabajadorFacade);
+        facades.add(tituloProfesionalFacade);
+        empleadoGUI.generarMenu(menu, facades, this, FacesContext.getCurrentInstance().getApplication());
         validate();
     }
     
     public void manejarInventario() {
         ArrayList<AbstractFacade> facades = new ArrayList();
         facades.add(proyectoFacade);
-        inventarioGUI.generarMenu(menu, facades, this);
+        inventarioGUI.generarMenu(menu, facades, this, FacesContext.getCurrentInstance().getApplication());
         validate();
     }
     
     public void manejarMateriales() {
         ArrayList<AbstractFacade> facades = new ArrayList();
         facades.add(proyectoFacade);
-        materialGUI.generarMenu(menu, facades, this);
+        materialGUI.generarMenu(menu, facades, this, FacesContext.getCurrentInstance().getApplication());
         validate();
     }
     
     public void manejarProyectos() {
         ArrayList<AbstractFacade> facades = new ArrayList();
         facades.add(proyectoFacade);
-        proyectoGUI.generarMenu(menu, facades, this);
+        proyectoGUI.generarMenu(menu, facades, this, FacesContext.getCurrentInstance().getApplication());
         validate();
     }
     

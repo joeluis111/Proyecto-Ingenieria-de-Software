@@ -13,11 +13,11 @@ import org.primefaces.component.commandbutton.CommandButton;
  * @author Kenny
  */
 public class UtilidadesGUI {
-    public static CommandButton crearBotonDeVer() {
-        CommandButton ver = new CommandButton();
-        ver.setValue("Ver");
+    public static CommandButton crearBoton(String s) {
+        CommandButton b = new CommandButton();
+        b.setValue(s);
         
-        return ver;
+        return b;
     }
     
     public static HtmlOutputText crearTexto(Object s) {

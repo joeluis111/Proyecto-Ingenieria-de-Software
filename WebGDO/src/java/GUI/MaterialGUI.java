@@ -6,8 +6,10 @@
 package GUI;
 
 import DP.AbstractFacade;
+import DP.MaterialFacade;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Iterator;
 import javax.annotation.PostConstruct;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.event.ActionEvent;
@@ -18,6 +20,7 @@ import javax.faces.event.ActionEvent;
  */
 public class MaterialGUI extends GUIAbstracta implements Serializable {
     private HtmlPanelGroup menu;
+    private MaterialFacade materialFacade;
     
     /**
      * Creates a new instance of MaterialGUI
@@ -32,7 +35,15 @@ public class MaterialGUI extends GUIAbstracta implements Serializable {
 
     @Override
     protected void guardarFacades(Collection<AbstractFacade> facades) {
-        
+        Iterator<AbstractFacade> iterador = facades.iterator();
+        while (iterador.hasNext()) {
+            AbstractFacade facade = iterador.next();
+            switch(facade.getType()) {
+                case MATERIAL:
+                    materialFacade = (MaterialFacade)facade;
+                    break;
+            }
+        }
     }
 
     @Override
@@ -42,11 +53,6 @@ public class MaterialGUI extends GUIAbstracta implements Serializable {
 
     @Override
     protected void generarMenuDeCreacion(HtmlPanelGroup menu, ActionEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected void generarMenuDeEdicion(HtmlPanelGroup menu, ActionEvent e) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
