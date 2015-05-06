@@ -47,3 +47,4 @@ WebGDO/build/
 WebGDO/nbproject/
 WebGDO/setup/
 build.xml
+*.class

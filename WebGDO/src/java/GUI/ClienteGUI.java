@@ -28,7 +28,7 @@ public class ClienteGUI extends GUIAbstracta implements Serializable {
      */
     @Override
     protected void guardarFacades(Collection<AbstractFacade> facades) {
-        
+        System.out.println("Guardar");
     }
 
     /**
