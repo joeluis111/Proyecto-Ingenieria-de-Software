@@ -9,10 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,22 +25,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Kenny
  */
-// TODO: Arreglar esta tabla en la base de datos, la clave
-// primaria debería ser propia de la tabla, no una combinación
-// de las otras claves primarias.
 @Entity
 @Table(name = "historiacliente")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "HistoriaCliente.findAll", query = "SELECT h FROM HistoriaCliente h"),
-    @NamedQuery(name = "HistoriaCliente.findByCliid", query = "SELECT h FROM HistoriaCliente h WHERE h.historiaClientePK.cliid = :cliid"),
-    @NamedQuery(name = "HistoriaCliente.findByProid", query = "SELECT h FROM HistoriaCliente h WHERE h.historiaClientePK.proid = :proid"),
+    @NamedQuery(name = "HistoriaCliente.findByCliid", query = "SELECT h FROM HistoriaCliente h WHERE h.cliid = :cliid"),
+    @NamedQuery(name = "HistoriaCliente.findByProid", query = "SELECT h FROM HistoriaCliente h WHERE h.proid = :proid"),
     @NamedQuery(name = "HistoriaCliente.findByHcfechainicio", query = "SELECT h FROM HistoriaCliente h WHERE h.hcfechainicio = :hcfechainicio"),
-    @NamedQuery(name = "HistoriaCliente.findByHcfechafin", query = "SELECT h FROM HistoriaCliente h WHERE h.hcfechafin = :hcfechafin")})
+    @NamedQuery(name = "HistoriaCliente.findByHcfechafin", query = "SELECT h FROM HistoriaCliente h WHERE h.hcfechafin = :hcfechafin"),
+    @NamedQuery(name = "HistoriaCliente.findByHcid", query = "SELECT h FROM HistoriaCliente h WHERE h.hcid = :hcid")})
 public class HistoriaCliente implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected HistoriaClientePK historiaClientePK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "CLIID")
+    private int cliid;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PROID")
+    private int proid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HCFECHAINICIO")
@@ -49,35 +53,40 @@ public class HistoriaCliente implements Serializable, Entidad {
     @Column(name = "HCFECHAFIN")
     @Temporal(TemporalType.DATE)
     private Date hcfechafin;
-    @JoinColumn(name = "PROID", referencedColumnName = "PROID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Proyecto proyecto;
-    @JoinColumn(name = "CLIID", referencedColumnName = "CLIID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Cliente cliente;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "hcid")
+    private Integer hcid;
 
     public HistoriaCliente() {
     }
 
-    public HistoriaCliente(HistoriaClientePK historiaClientePK) {
-        this.historiaClientePK = historiaClientePK;
+    public HistoriaCliente(Integer hcid) {
+        this.hcid = hcid;
     }
 
-    public HistoriaCliente(HistoriaClientePK historiaClientePK, Date hcfechainicio) {
-        this.historiaClientePK = historiaClientePK;
+    public HistoriaCliente(Integer hcid, int cliid, int proid, Date hcfechainicio) {
+        this.hcid = hcid;
+        this.cliid = cliid;
+        this.proid = proid;
         this.hcfechainicio = hcfechainicio;
     }
 
-    public HistoriaCliente(int cliid, int proid) {
-        this.historiaClientePK = new HistoriaClientePK(cliid, proid);
+    public int getCliid() {
+        return cliid;
     }
 
-    public HistoriaClientePK getHistoriaClientePK() {
-        return historiaClientePK;
+    public void setCliid(int cliid) {
+        this.cliid = cliid;
     }
 
-    public void setHistoriaClientePK(HistoriaClientePK historiaClientePK) {
-        this.historiaClientePK = historiaClientePK;
+    public int getProid() {
+        return proid;
+    }
+
+    public void setProid(int proid) {
+        this.proid = proid;
     }
 
     public Date getHcfechainicio() {
@@ -96,26 +105,18 @@ public class HistoriaCliente implements Serializable, Entidad {
         this.hcfechafin = hcfechafin;
     }
 
-    public Proyecto getProyecto() {
-        return proyecto;
+    public Integer getHcid() {
+        return hcid;
     }
 
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setHcid(Integer hcid) {
+        this.hcid = hcid;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (historiaClientePK != null ? historiaClientePK.hashCode() : 0);
+        hash += (hcid != null ? hcid.hashCode() : 0);
         return hash;
     }
 
@@ -126,7 +127,7 @@ public class HistoriaCliente implements Serializable, Entidad {
             return false;
         }
         HistoriaCliente other = (HistoriaCliente) object;
-        if ((this.historiaClientePK == null && other.historiaClientePK != null) || (this.historiaClientePK != null && !this.historiaClientePK.equals(other.historiaClientePK))) {
+        if ((this.hcid == null && other.hcid != null) || (this.hcid != null && !this.hcid.equals(other.hcid))) {
             return false;
         }
         return true;
@@ -134,17 +135,17 @@ public class HistoriaCliente implements Serializable, Entidad {
 
     @Override
     public String toString() {
-        return "MD.HistoriaCliente[ historiaClientePK=" + historiaClientePK + " ]";
+        return "MD.HistoriaCliente[ hcid=" + hcid + " ]";
     }
 
     @Override
-    public Object getID() {
-        return this.getHistoriaClientePK();
+    public Object getIdentidad() {
+        return this.getHcid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return "";
+        return "Historia " + Integer.toString(this.getHcid());
     }
     
 }

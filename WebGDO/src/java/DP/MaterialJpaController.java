@@ -19,16 +19,8 @@ import MD.Proveedor;
 import java.util.ArrayList;
 import java.util.Collection;
 import MD.UsoPlaneado;
-import MD.HistoriaInventaria;
-import MD.HistoriaInventaria;
-import MD.Inventario;
 import MD.Inventario;
 import MD.Material;
-import MD.Material;
-import MD.Proveedor;
-import MD.TipoMaterial;
-import MD.Unidad;
-import MD.UsoPlaneado;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -57,9 +49,6 @@ public class MaterialJpaController implements Serializable {
         }
         if (material.getUsoPlaneadoCollection() == null) {
             material.setUsoPlaneadoCollection(new ArrayList<UsoPlaneado>());
-        }
-        if (material.getHistoriaInventariaCollection() == null) {
-            material.setHistoriaInventariaCollection(new ArrayList<HistoriaInventaria>());
         }
         if (material.getInventarioCollection() == null) {
             material.setInventarioCollection(new ArrayList<Inventario>());
@@ -90,12 +79,6 @@ public class MaterialJpaController implements Serializable {
                 attachedUsoPlaneadoCollection.add(usoPlaneadoCollectionUsoPlaneadoToAttach);
             }
             material.setUsoPlaneadoCollection(attachedUsoPlaneadoCollection);
-            Collection<HistoriaInventaria> attachedHistoriaInventariaCollection = new ArrayList<HistoriaInventaria>();
-            for (HistoriaInventaria historiaInventariaCollectionHistoriaInventariaToAttach : material.getHistoriaInventariaCollection()) {
-                historiaInventariaCollectionHistoriaInventariaToAttach = em.getReference(historiaInventariaCollectionHistoriaInventariaToAttach.getClass(), historiaInventariaCollectionHistoriaInventariaToAttach.getHistoriaInventariaPK());
-                attachedHistoriaInventariaCollection.add(historiaInventariaCollectionHistoriaInventariaToAttach);
-            }
-            material.setHistoriaInventariaCollection(attachedHistoriaInventariaCollection);
             Collection<Inventario> attachedInventarioCollection = new ArrayList<Inventario>();
             for (Inventario inventarioCollectionInventarioToAttach : material.getInventarioCollection()) {
                 inventarioCollectionInventarioToAttach = em.getReference(inventarioCollectionInventarioToAttach.getClass(), inventarioCollectionInventarioToAttach.getInventarioPK());
@@ -122,15 +105,6 @@ public class MaterialJpaController implements Serializable {
                 if (oldMaterialOfUsoPlaneadoCollectionUsoPlaneado != null) {
                     oldMaterialOfUsoPlaneadoCollectionUsoPlaneado.getUsoPlaneadoCollection().remove(usoPlaneadoCollectionUsoPlaneado);
                     oldMaterialOfUsoPlaneadoCollectionUsoPlaneado = em.merge(oldMaterialOfUsoPlaneadoCollectionUsoPlaneado);
-                }
-            }
-            for (HistoriaInventaria historiaInventariaCollectionHistoriaInventaria : material.getHistoriaInventariaCollection()) {
-                Material oldMaterialOfHistoriaInventariaCollectionHistoriaInventaria = historiaInventariaCollectionHistoriaInventaria.getMaterial();
-                historiaInventariaCollectionHistoriaInventaria.setMaterial(material);
-                historiaInventariaCollectionHistoriaInventaria = em.merge(historiaInventariaCollectionHistoriaInventaria);
-                if (oldMaterialOfHistoriaInventariaCollectionHistoriaInventaria != null) {
-                    oldMaterialOfHistoriaInventariaCollectionHistoriaInventaria.getHistoriaInventariaCollection().remove(historiaInventariaCollectionHistoriaInventaria);
-                    oldMaterialOfHistoriaInventariaCollectionHistoriaInventaria = em.merge(oldMaterialOfHistoriaInventariaCollectionHistoriaInventaria);
                 }
             }
             for (Inventario inventarioCollectionInventario : material.getInventarioCollection()) {
@@ -171,8 +145,6 @@ public class MaterialJpaController implements Serializable {
             Collection<Proveedor> proveedorCollectionNew = material.getProveedorCollection();
             Collection<UsoPlaneado> usoPlaneadoCollectionOld = persistentMaterial.getUsoPlaneadoCollection();
             Collection<UsoPlaneado> usoPlaneadoCollectionNew = material.getUsoPlaneadoCollection();
-            Collection<HistoriaInventaria> historiaInventariaCollectionOld = persistentMaterial.getHistoriaInventariaCollection();
-            Collection<HistoriaInventaria> historiaInventariaCollectionNew = material.getHistoriaInventariaCollection();
             Collection<Inventario> inventarioCollectionOld = persistentMaterial.getInventarioCollection();
             Collection<Inventario> inventarioCollectionNew = material.getInventarioCollection();
             List<String> illegalOrphanMessages = null;
@@ -182,14 +154,6 @@ public class MaterialJpaController implements Serializable {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
                     illegalOrphanMessages.add("You must retain UsoPlaneado " + usoPlaneadoCollectionOldUsoPlaneado + " since its material field is not nullable.");
-                }
-            }
-            for (HistoriaInventaria historiaInventariaCollectionOldHistoriaInventaria : historiaInventariaCollectionOld) {
-                if (!historiaInventariaCollectionNew.contains(historiaInventariaCollectionOldHistoriaInventaria)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain HistoriaInventaria " + historiaInventariaCollectionOldHistoriaInventaria + " since its material field is not nullable.");
                 }
             }
             for (Inventario inventarioCollectionOldInventario : inventarioCollectionOld) {
@@ -225,13 +189,6 @@ public class MaterialJpaController implements Serializable {
             }
             usoPlaneadoCollectionNew = attachedUsoPlaneadoCollectionNew;
             material.setUsoPlaneadoCollection(usoPlaneadoCollectionNew);
-            Collection<HistoriaInventaria> attachedHistoriaInventariaCollectionNew = new ArrayList<HistoriaInventaria>();
-            for (HistoriaInventaria historiaInventariaCollectionNewHistoriaInventariaToAttach : historiaInventariaCollectionNew) {
-                historiaInventariaCollectionNewHistoriaInventariaToAttach = em.getReference(historiaInventariaCollectionNewHistoriaInventariaToAttach.getClass(), historiaInventariaCollectionNewHistoriaInventariaToAttach.getHistoriaInventariaPK());
-                attachedHistoriaInventariaCollectionNew.add(historiaInventariaCollectionNewHistoriaInventariaToAttach);
-            }
-            historiaInventariaCollectionNew = attachedHistoriaInventariaCollectionNew;
-            material.setHistoriaInventariaCollection(historiaInventariaCollectionNew);
             Collection<Inventario> attachedInventarioCollectionNew = new ArrayList<Inventario>();
             for (Inventario inventarioCollectionNewInventarioToAttach : inventarioCollectionNew) {
                 inventarioCollectionNewInventarioToAttach = em.getReference(inventarioCollectionNewInventarioToAttach.getClass(), inventarioCollectionNewInventarioToAttach.getInventarioPK());
@@ -276,17 +233,6 @@ public class MaterialJpaController implements Serializable {
                     if (oldMaterialOfUsoPlaneadoCollectionNewUsoPlaneado != null && !oldMaterialOfUsoPlaneadoCollectionNewUsoPlaneado.equals(material)) {
                         oldMaterialOfUsoPlaneadoCollectionNewUsoPlaneado.getUsoPlaneadoCollection().remove(usoPlaneadoCollectionNewUsoPlaneado);
                         oldMaterialOfUsoPlaneadoCollectionNewUsoPlaneado = em.merge(oldMaterialOfUsoPlaneadoCollectionNewUsoPlaneado);
-                    }
-                }
-            }
-            for (HistoriaInventaria historiaInventariaCollectionNewHistoriaInventaria : historiaInventariaCollectionNew) {
-                if (!historiaInventariaCollectionOld.contains(historiaInventariaCollectionNewHistoriaInventaria)) {
-                    Material oldMaterialOfHistoriaInventariaCollectionNewHistoriaInventaria = historiaInventariaCollectionNewHistoriaInventaria.getMaterial();
-                    historiaInventariaCollectionNewHistoriaInventaria.setMaterial(material);
-                    historiaInventariaCollectionNewHistoriaInventaria = em.merge(historiaInventariaCollectionNewHistoriaInventaria);
-                    if (oldMaterialOfHistoriaInventariaCollectionNewHistoriaInventaria != null && !oldMaterialOfHistoriaInventariaCollectionNewHistoriaInventaria.equals(material)) {
-                        oldMaterialOfHistoriaInventariaCollectionNewHistoriaInventaria.getHistoriaInventariaCollection().remove(historiaInventariaCollectionNewHistoriaInventaria);
-                        oldMaterialOfHistoriaInventariaCollectionNewHistoriaInventaria = em.merge(oldMaterialOfHistoriaInventariaCollectionNewHistoriaInventaria);
                     }
                 }
             }
@@ -342,13 +288,6 @@ public class MaterialJpaController implements Serializable {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
                 illegalOrphanMessages.add("This Material (" + material + ") cannot be destroyed since the UsoPlaneado " + usoPlaneadoCollectionOrphanCheckUsoPlaneado + " in its usoPlaneadoCollection field has a non-nullable material field.");
-            }
-            Collection<HistoriaInventaria> historiaInventariaCollectionOrphanCheck = material.getHistoriaInventariaCollection();
-            for (HistoriaInventaria historiaInventariaCollectionOrphanCheckHistoriaInventaria : historiaInventariaCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Material (" + material + ") cannot be destroyed since the HistoriaInventaria " + historiaInventariaCollectionOrphanCheckHistoriaInventaria + " in its historiaInventariaCollection field has a non-nullable material field.");
             }
             Collection<Inventario> inventarioCollectionOrphanCheck = material.getInventarioCollection();
             for (Inventario inventarioCollectionOrphanCheckInventario : inventarioCollectionOrphanCheck) {

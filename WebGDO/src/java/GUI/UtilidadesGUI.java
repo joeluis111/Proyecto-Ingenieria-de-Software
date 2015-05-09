@@ -10,7 +10,6 @@ import MD.Entidad;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.model.SelectItem;
@@ -48,7 +47,7 @@ public class UtilidadesGUI {
         Collection<SelectItem> items = new ArrayList();
         while (entidades.hasNext()) {
             Entidad e = entidades.next();
-            items.add(new SelectItem(e.getID(), e.getCadenaDesplegable()));
+            items.add(new SelectItem(e.getIdentidad(), e.getCadenaDesplegable()));
         }
         UISelectItems itemsSeleccionables = new UISelectItems();
         itemsSeleccionables.setValue(items);

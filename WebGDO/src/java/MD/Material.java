@@ -53,8 +53,6 @@ public class Material implements Serializable, Entidad {
     private Collection<Proveedor> proveedorCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "material")
     private Collection<UsoPlaneado> usoPlaneadoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "material")
-    private Collection<HistoriaInventaria> historiaInventariaCollection;
     @JoinColumn(name = "UNID", referencedColumnName = "UNID")
     @ManyToOne(optional = false)
     private Unidad unid;
@@ -110,15 +108,6 @@ public class Material implements Serializable, Entidad {
         this.usoPlaneadoCollection = usoPlaneadoCollection;
     }
 
-    @XmlTransient
-    public Collection<HistoriaInventaria> getHistoriaInventariaCollection() {
-        return historiaInventariaCollection;
-    }
-
-    public void setHistoriaInventariaCollection(Collection<HistoriaInventaria> historiaInventariaCollection) {
-        this.historiaInventariaCollection = historiaInventariaCollection;
-    }
-
     public Unidad getUnid() {
         return unid;
     }
@@ -170,13 +159,13 @@ public class Material implements Serializable, Entidad {
     }
 
     @Override
-    public Object getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getIdentidad() {
+        return this.getMatid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getMatnombre();
     }
     
 }

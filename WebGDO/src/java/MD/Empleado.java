@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -92,8 +91,6 @@ public class Empleado implements Serializable, Entidad {
     @Size(min = 1, max = 50)
     @Column(name = "EMPAPELLIDOS")
     private String empapellidos;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
-    private Collection<HistoriaTrabajo> historiaTrabajoCollection;
     @OneToMany(mappedBy = "empid")
     private Collection<Documento> documentoCollection;
     @JoinColumn(name = "TTID", referencedColumnName = "TTID")
@@ -195,15 +192,6 @@ public class Empleado implements Serializable, Entidad {
     }
 
     @XmlTransient
-    public Collection<HistoriaTrabajo> getHistoriaTrabajoCollection() {
-        return historiaTrabajoCollection;
-    }
-
-    public void setHistoriaTrabajoCollection(Collection<HistoriaTrabajo> historiaTrabajoCollection) {
-        this.historiaTrabajoCollection = historiaTrabajoCollection;
-    }
-
-    @XmlTransient
     public Collection<Documento> getDocumentoCollection() {
         return documentoCollection;
     }
@@ -254,13 +242,13 @@ public class Empleado implements Serializable, Entidad {
     }
 
     @Override
-    public Object getID() {
-        return getEmpid();
+    public Object getIdentidad() {
+        return this.getEmpid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return getEmpnombres() + getEmpapellidos();
+        return this.getEmpnombres() + " " + this.getEmpapellidos();
     }
     
 }

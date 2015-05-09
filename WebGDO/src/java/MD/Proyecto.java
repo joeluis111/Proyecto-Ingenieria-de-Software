@@ -48,14 +48,8 @@ public class Proyecto implements Serializable, Entidad {
     private String pronombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyecto")
     private Collection<UsoPlaneado> usoPlaneadoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyecto")
-    private Collection<HistoriaTrabajo> historiaTrabajoCollection;
     @OneToMany(mappedBy = "proid")
     private Collection<Documento> documentoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyecto")
-    private Collection<HistoriaCliente> historiaClienteCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyecto")
-    private Collection<HistoriaInventaria> historiaInventariaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proid")
     private Collection<Calendario> calendarioCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "proyecto")
@@ -99,39 +93,12 @@ public class Proyecto implements Serializable, Entidad {
     }
 
     @XmlTransient
-    public Collection<HistoriaTrabajo> getHistoriaTrabajoCollection() {
-        return historiaTrabajoCollection;
-    }
-
-    public void setHistoriaTrabajoCollection(Collection<HistoriaTrabajo> historiaTrabajoCollection) {
-        this.historiaTrabajoCollection = historiaTrabajoCollection;
-    }
-
-    @XmlTransient
     public Collection<Documento> getDocumentoCollection() {
         return documentoCollection;
     }
 
     public void setDocumentoCollection(Collection<Documento> documentoCollection) {
         this.documentoCollection = documentoCollection;
-    }
-
-    @XmlTransient
-    public Collection<HistoriaCliente> getHistoriaClienteCollection() {
-        return historiaClienteCollection;
-    }
-
-    public void setHistoriaClienteCollection(Collection<HistoriaCliente> historiaClienteCollection) {
-        this.historiaClienteCollection = historiaClienteCollection;
-    }
-
-    @XmlTransient
-    public Collection<HistoriaInventaria> getHistoriaInventariaCollection() {
-        return historiaInventariaCollection;
-    }
-
-    public void setHistoriaInventariaCollection(Collection<HistoriaInventaria> historiaInventariaCollection) {
-        this.historiaInventariaCollection = historiaInventariaCollection;
     }
 
     @XmlTransient
@@ -178,13 +145,13 @@ public class Proyecto implements Serializable, Entidad {
     }
 
     @Override
-    public Object getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getIdentidad() {
+        return this.getProid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getPronombre();
     }
     
 }

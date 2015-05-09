@@ -111,13 +111,13 @@ public class TipoTrabajador implements Serializable, Entidad {
     }
 
     @Override
-    public Object getID() {
-        return getTtid();
+    public Object getIdentidad() {
+        return this.getTtid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return getTtnombre();
+        return this.getTtnombre();
     }
     
 }

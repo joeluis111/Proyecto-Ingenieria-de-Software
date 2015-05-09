@@ -104,13 +104,13 @@ public class Calendario implements Serializable, Entidad {
     }
 
     @Override
-    public Object getID() {
-        return getCalid();
+    public Object getIdentidad() {
+        return this.getCalid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return "Calendario de Proyecto " + this.getProid().getPronombre();
+        return "Calendario " + this.getProid().getPronombre();
     }
     
 }

@@ -211,13 +211,13 @@ public class Evento implements Serializable, Entidad {
     }
 
     @Override
-    public Object getID() {
-        return getEvid();
+    public Object getIdentidad() {
+        return this.getEvid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return getEvnombre();
+        return this.getEvnombre();
     }
     
 }

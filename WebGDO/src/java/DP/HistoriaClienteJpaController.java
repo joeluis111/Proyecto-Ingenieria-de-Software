@@ -6,24 +6,16 @@
 package DP;
 
 import DP.exceptions.NonexistentEntityException;
-import DP.exceptions.PreexistingEntityException;
 import DP.exceptions.RollbackFailureException;
+import MD.HistoriaCliente;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import MD.Proyecto;
-import MD.Cliente;
-import MD.Cliente;
-import MD.HistoriaCliente;
-import MD.HistoriaCliente;
-import MD.HistoriaClientePK;
-import MD.HistoriaClientePK;
-import MD.Proyecto;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
 
 /**
@@ -43,44 +35,18 @@ public class HistoriaClienteJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(HistoriaCliente historiaCliente) throws PreexistingEntityException, RollbackFailureException, Exception {
-        if (historiaCliente.getHistoriaClientePK() == null) {
-            historiaCliente.setHistoriaClientePK(new HistoriaClientePK());
-        }
-        historiaCliente.getHistoriaClientePK().setProid(historiaCliente.getProyecto().getProid());
-        historiaCliente.getHistoriaClientePK().setCliid(historiaCliente.getCliente().getCliid());
+    public void create(HistoriaCliente historiaCliente) throws RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Proyecto proyecto = historiaCliente.getProyecto();
-            if (proyecto != null) {
-                proyecto = em.getReference(proyecto.getClass(), proyecto.getProid());
-                historiaCliente.setProyecto(proyecto);
-            }
-            Cliente cliente = historiaCliente.getCliente();
-            if (cliente != null) {
-                cliente = em.getReference(cliente.getClass(), cliente.getCliid());
-                historiaCliente.setCliente(cliente);
-            }
             em.persist(historiaCliente);
-            if (proyecto != null) {
-                proyecto.getHistoriaClienteCollection().add(historiaCliente);
-                proyecto = em.merge(proyecto);
-            }
-            if (cliente != null) {
-                cliente.getHistoriaClienteCollection().add(historiaCliente);
-                cliente = em.merge(cliente);
-            }
             utx.commit();
         } catch (Exception ex) {
             try {
                 utx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            if (findHistoriaCliente(historiaCliente.getHistoriaClientePK()) != null) {
-                throw new PreexistingEntityException("HistoriaCliente " + historiaCliente + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -91,42 +57,11 @@ public class HistoriaClienteJpaController implements Serializable {
     }
 
     public void edit(HistoriaCliente historiaCliente) throws NonexistentEntityException, RollbackFailureException, Exception {
-        historiaCliente.getHistoriaClientePK().setProid(historiaCliente.getProyecto().getProid());
-        historiaCliente.getHistoriaClientePK().setCliid(historiaCliente.getCliente().getCliid());
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            HistoriaCliente persistentHistoriaCliente = em.find(HistoriaCliente.class, historiaCliente.getHistoriaClientePK());
-            Proyecto proyectoOld = persistentHistoriaCliente.getProyecto();
-            Proyecto proyectoNew = historiaCliente.getProyecto();
-            Cliente clienteOld = persistentHistoriaCliente.getCliente();
-            Cliente clienteNew = historiaCliente.getCliente();
-            if (proyectoNew != null) {
-                proyectoNew = em.getReference(proyectoNew.getClass(), proyectoNew.getProid());
-                historiaCliente.setProyecto(proyectoNew);
-            }
-            if (clienteNew != null) {
-                clienteNew = em.getReference(clienteNew.getClass(), clienteNew.getCliid());
-                historiaCliente.setCliente(clienteNew);
-            }
             historiaCliente = em.merge(historiaCliente);
-            if (proyectoOld != null && !proyectoOld.equals(proyectoNew)) {
-                proyectoOld.getHistoriaClienteCollection().remove(historiaCliente);
-                proyectoOld = em.merge(proyectoOld);
-            }
-            if (proyectoNew != null && !proyectoNew.equals(proyectoOld)) {
-                proyectoNew.getHistoriaClienteCollection().add(historiaCliente);
-                proyectoNew = em.merge(proyectoNew);
-            }
-            if (clienteOld != null && !clienteOld.equals(clienteNew)) {
-                clienteOld.getHistoriaClienteCollection().remove(historiaCliente);
-                clienteOld = em.merge(clienteOld);
-            }
-            if (clienteNew != null && !clienteNew.equals(clienteOld)) {
-                clienteNew.getHistoriaClienteCollection().add(historiaCliente);
-                clienteNew = em.merge(clienteNew);
-            }
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -136,7 +71,7 @@ public class HistoriaClienteJpaController implements Serializable {
             }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                HistoriaClientePK id = historiaCliente.getHistoriaClientePK();
+                Integer id = historiaCliente.getHcid();
                 if (findHistoriaCliente(id) == null) {
                     throw new NonexistentEntityException("The historiaCliente with id " + id + " no longer exists.");
                 }
@@ -149,7 +84,7 @@ public class HistoriaClienteJpaController implements Serializable {
         }
     }
 
-    public void destroy(HistoriaClientePK id) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
@@ -157,19 +92,9 @@ public class HistoriaClienteJpaController implements Serializable {
             HistoriaCliente historiaCliente;
             try {
                 historiaCliente = em.getReference(HistoriaCliente.class, id);
-                historiaCliente.getHistoriaClientePK();
+                historiaCliente.getHcid();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The historiaCliente with id " + id + " no longer exists.", enfe);
-            }
-            Proyecto proyecto = historiaCliente.getProyecto();
-            if (proyecto != null) {
-                proyecto.getHistoriaClienteCollection().remove(historiaCliente);
-                proyecto = em.merge(proyecto);
-            }
-            Cliente cliente = historiaCliente.getCliente();
-            if (cliente != null) {
-                cliente.getHistoriaClienteCollection().remove(historiaCliente);
-                cliente = em.merge(cliente);
             }
             em.remove(historiaCliente);
             utx.commit();
@@ -211,7 +136,7 @@ public class HistoriaClienteJpaController implements Serializable {
         }
     }
 
-    public HistoriaCliente findHistoriaCliente(HistoriaClientePK id) {
+    public HistoriaCliente findHistoriaCliente(Integer id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(HistoriaCliente.class, id);

@@ -5,7 +5,6 @@
  */
 package DP;
 
-import DP.exceptions.IllegalOrphanException;
 import DP.exceptions.NonexistentEntityException;
 import DP.exceptions.RollbackFailureException;
 import java.io.Serializable;
@@ -15,16 +14,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import MD.TipoTrabajador;
 import MD.TituloProfesional;
-import MD.HistoriaTrabajo;
+import MD.Documento;
+import MD.Empleado;
 import java.util.ArrayList;
 import java.util.Collection;
-import MD.Documento;
-import MD.Documento;
-import MD.Empleado;
-import MD.Empleado;
-import MD.HistoriaTrabajo;
-import MD.TipoTrabajador;
-import MD.TituloProfesional;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -48,9 +41,6 @@ public class EmpleadoJpaController implements Serializable {
     }
 
     public void create(Empleado empleado) throws RollbackFailureException, Exception {
-        if (empleado.getHistoriaTrabajoCollection() == null) {
-            empleado.setHistoriaTrabajoCollection(new ArrayList<HistoriaTrabajo>());
-        }
         if (empleado.getDocumentoCollection() == null) {
             empleado.setDocumentoCollection(new ArrayList<Documento>());
         }
@@ -68,12 +58,6 @@ public class EmpleadoJpaController implements Serializable {
                 tpid = em.getReference(tpid.getClass(), tpid.getTpid());
                 empleado.setTpid(tpid);
             }
-            Collection<HistoriaTrabajo> attachedHistoriaTrabajoCollection = new ArrayList<HistoriaTrabajo>();
-            for (HistoriaTrabajo historiaTrabajoCollectionHistoriaTrabajoToAttach : empleado.getHistoriaTrabajoCollection()) {
-                historiaTrabajoCollectionHistoriaTrabajoToAttach = em.getReference(historiaTrabajoCollectionHistoriaTrabajoToAttach.getClass(), historiaTrabajoCollectionHistoriaTrabajoToAttach.getHistoriaTrabajoPK());
-                attachedHistoriaTrabajoCollection.add(historiaTrabajoCollectionHistoriaTrabajoToAttach);
-            }
-            empleado.setHistoriaTrabajoCollection(attachedHistoriaTrabajoCollection);
             Collection<Documento> attachedDocumentoCollection = new ArrayList<Documento>();
             for (Documento documentoCollectionDocumentoToAttach : empleado.getDocumentoCollection()) {
                 documentoCollectionDocumentoToAttach = em.getReference(documentoCollectionDocumentoToAttach.getClass(), documentoCollectionDocumentoToAttach.getDocid());
@@ -88,15 +72,6 @@ public class EmpleadoJpaController implements Serializable {
             if (tpid != null) {
                 tpid.getEmpleadoCollection().add(empleado);
                 tpid = em.merge(tpid);
-            }
-            for (HistoriaTrabajo historiaTrabajoCollectionHistoriaTrabajo : empleado.getHistoriaTrabajoCollection()) {
-                Empleado oldEmpleadoOfHistoriaTrabajoCollectionHistoriaTrabajo = historiaTrabajoCollectionHistoriaTrabajo.getEmpleado();
-                historiaTrabajoCollectionHistoriaTrabajo.setEmpleado(empleado);
-                historiaTrabajoCollectionHistoriaTrabajo = em.merge(historiaTrabajoCollectionHistoriaTrabajo);
-                if (oldEmpleadoOfHistoriaTrabajoCollectionHistoriaTrabajo != null) {
-                    oldEmpleadoOfHistoriaTrabajoCollectionHistoriaTrabajo.getHistoriaTrabajoCollection().remove(historiaTrabajoCollectionHistoriaTrabajo);
-                    oldEmpleadoOfHistoriaTrabajoCollectionHistoriaTrabajo = em.merge(oldEmpleadoOfHistoriaTrabajoCollectionHistoriaTrabajo);
-                }
             }
             for (Documento documentoCollectionDocumento : empleado.getDocumentoCollection()) {
                 Empleado oldEmpidOfDocumentoCollectionDocumento = documentoCollectionDocumento.getEmpid();
@@ -122,7 +97,7 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public void edit(Empleado empleado) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Empleado empleado) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
@@ -132,22 +107,8 @@ public class EmpleadoJpaController implements Serializable {
             TipoTrabajador ttidNew = empleado.getTtid();
             TituloProfesional tpidOld = persistentEmpleado.getTpid();
             TituloProfesional tpidNew = empleado.getTpid();
-            Collection<HistoriaTrabajo> historiaTrabajoCollectionOld = persistentEmpleado.getHistoriaTrabajoCollection();
-            Collection<HistoriaTrabajo> historiaTrabajoCollectionNew = empleado.getHistoriaTrabajoCollection();
             Collection<Documento> documentoCollectionOld = persistentEmpleado.getDocumentoCollection();
             Collection<Documento> documentoCollectionNew = empleado.getDocumentoCollection();
-            List<String> illegalOrphanMessages = null;
-            for (HistoriaTrabajo historiaTrabajoCollectionOldHistoriaTrabajo : historiaTrabajoCollectionOld) {
-                if (!historiaTrabajoCollectionNew.contains(historiaTrabajoCollectionOldHistoriaTrabajo)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain HistoriaTrabajo " + historiaTrabajoCollectionOldHistoriaTrabajo + " since its empleado field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
             if (ttidNew != null) {
                 ttidNew = em.getReference(ttidNew.getClass(), ttidNew.getTtid());
                 empleado.setTtid(ttidNew);
@@ -156,13 +117,6 @@ public class EmpleadoJpaController implements Serializable {
                 tpidNew = em.getReference(tpidNew.getClass(), tpidNew.getTpid());
                 empleado.setTpid(tpidNew);
             }
-            Collection<HistoriaTrabajo> attachedHistoriaTrabajoCollectionNew = new ArrayList<HistoriaTrabajo>();
-            for (HistoriaTrabajo historiaTrabajoCollectionNewHistoriaTrabajoToAttach : historiaTrabajoCollectionNew) {
-                historiaTrabajoCollectionNewHistoriaTrabajoToAttach = em.getReference(historiaTrabajoCollectionNewHistoriaTrabajoToAttach.getClass(), historiaTrabajoCollectionNewHistoriaTrabajoToAttach.getHistoriaTrabajoPK());
-                attachedHistoriaTrabajoCollectionNew.add(historiaTrabajoCollectionNewHistoriaTrabajoToAttach);
-            }
-            historiaTrabajoCollectionNew = attachedHistoriaTrabajoCollectionNew;
-            empleado.setHistoriaTrabajoCollection(historiaTrabajoCollectionNew);
             Collection<Documento> attachedDocumentoCollectionNew = new ArrayList<Documento>();
             for (Documento documentoCollectionNewDocumentoToAttach : documentoCollectionNew) {
                 documentoCollectionNewDocumentoToAttach = em.getReference(documentoCollectionNewDocumentoToAttach.getClass(), documentoCollectionNewDocumentoToAttach.getDocid());
@@ -186,17 +140,6 @@ public class EmpleadoJpaController implements Serializable {
             if (tpidNew != null && !tpidNew.equals(tpidOld)) {
                 tpidNew.getEmpleadoCollection().add(empleado);
                 tpidNew = em.merge(tpidNew);
-            }
-            for (HistoriaTrabajo historiaTrabajoCollectionNewHistoriaTrabajo : historiaTrabajoCollectionNew) {
-                if (!historiaTrabajoCollectionOld.contains(historiaTrabajoCollectionNewHistoriaTrabajo)) {
-                    Empleado oldEmpleadoOfHistoriaTrabajoCollectionNewHistoriaTrabajo = historiaTrabajoCollectionNewHistoriaTrabajo.getEmpleado();
-                    historiaTrabajoCollectionNewHistoriaTrabajo.setEmpleado(empleado);
-                    historiaTrabajoCollectionNewHistoriaTrabajo = em.merge(historiaTrabajoCollectionNewHistoriaTrabajo);
-                    if (oldEmpleadoOfHistoriaTrabajoCollectionNewHistoriaTrabajo != null && !oldEmpleadoOfHistoriaTrabajoCollectionNewHistoriaTrabajo.equals(empleado)) {
-                        oldEmpleadoOfHistoriaTrabajoCollectionNewHistoriaTrabajo.getHistoriaTrabajoCollection().remove(historiaTrabajoCollectionNewHistoriaTrabajo);
-                        oldEmpleadoOfHistoriaTrabajoCollectionNewHistoriaTrabajo = em.merge(oldEmpleadoOfHistoriaTrabajoCollectionNewHistoriaTrabajo);
-                    }
-                }
             }
             for (Documento documentoCollectionOldDocumento : documentoCollectionOld) {
                 if (!documentoCollectionNew.contains(documentoCollectionOldDocumento)) {
@@ -237,7 +180,7 @@ public class EmpleadoJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
@@ -248,17 +191,6 @@ public class EmpleadoJpaController implements Serializable {
                 empleado.getEmpid();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The empleado with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            Collection<HistoriaTrabajo> historiaTrabajoCollectionOrphanCheck = empleado.getHistoriaTrabajoCollection();
-            for (HistoriaTrabajo historiaTrabajoCollectionOrphanCheckHistoriaTrabajo : historiaTrabajoCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Empleado (" + empleado + ") cannot be destroyed since the HistoriaTrabajo " + historiaTrabajoCollectionOrphanCheckHistoriaTrabajo + " in its historiaTrabajoCollection field has a non-nullable empleado field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             TipoTrabajador ttid = empleado.getTtid();
             if (ttid != null) {

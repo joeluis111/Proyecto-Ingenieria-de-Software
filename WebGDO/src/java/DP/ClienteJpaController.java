@@ -5,23 +5,17 @@
  */
 package DP;
 
-import DP.exceptions.IllegalOrphanException;
 import DP.exceptions.NonexistentEntityException;
 import DP.exceptions.RollbackFailureException;
 import MD.Cliente;
-import MD.Cliente;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import MD.HistoriaCliente;
-import MD.HistoriaCliente;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
 
 /**
@@ -42,29 +36,11 @@ public class ClienteJpaController implements Serializable {
     }
 
     public void create(Cliente cliente) throws RollbackFailureException, Exception {
-        if (cliente.getHistoriaClienteCollection() == null) {
-            cliente.setHistoriaClienteCollection(new ArrayList<HistoriaCliente>());
-        }
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Collection<HistoriaCliente> attachedHistoriaClienteCollection = new ArrayList<HistoriaCliente>();
-            for (HistoriaCliente historiaClienteCollectionHistoriaClienteToAttach : cliente.getHistoriaClienteCollection()) {
-                historiaClienteCollectionHistoriaClienteToAttach = em.getReference(historiaClienteCollectionHistoriaClienteToAttach.getClass(), historiaClienteCollectionHistoriaClienteToAttach.getHistoriaClientePK());
-                attachedHistoriaClienteCollection.add(historiaClienteCollectionHistoriaClienteToAttach);
-            }
-            cliente.setHistoriaClienteCollection(attachedHistoriaClienteCollection);
             em.persist(cliente);
-            for (HistoriaCliente historiaClienteCollectionHistoriaCliente : cliente.getHistoriaClienteCollection()) {
-                Cliente oldClienteOfHistoriaClienteCollectionHistoriaCliente = historiaClienteCollectionHistoriaCliente.getCliente();
-                historiaClienteCollectionHistoriaCliente.setCliente(cliente);
-                historiaClienteCollectionHistoriaCliente = em.merge(historiaClienteCollectionHistoriaCliente);
-                if (oldClienteOfHistoriaClienteCollectionHistoriaCliente != null) {
-                    oldClienteOfHistoriaClienteCollectionHistoriaCliente.getHistoriaClienteCollection().remove(historiaClienteCollectionHistoriaCliente);
-                    oldClienteOfHistoriaClienteCollectionHistoriaCliente = em.merge(oldClienteOfHistoriaClienteCollectionHistoriaCliente);
-                }
-            }
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -80,45 +56,12 @@ public class ClienteJpaController implements Serializable {
         }
     }
 
-    public void edit(Cliente cliente) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(Cliente cliente) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Cliente persistentCliente = em.find(Cliente.class, cliente.getCliid());
-            Collection<HistoriaCliente> historiaClienteCollectionOld = persistentCliente.getHistoriaClienteCollection();
-            Collection<HistoriaCliente> historiaClienteCollectionNew = cliente.getHistoriaClienteCollection();
-            List<String> illegalOrphanMessages = null;
-            for (HistoriaCliente historiaClienteCollectionOldHistoriaCliente : historiaClienteCollectionOld) {
-                if (!historiaClienteCollectionNew.contains(historiaClienteCollectionOldHistoriaCliente)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain HistoriaCliente " + historiaClienteCollectionOldHistoriaCliente + " since its cliente field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            Collection<HistoriaCliente> attachedHistoriaClienteCollectionNew = new ArrayList<HistoriaCliente>();
-            for (HistoriaCliente historiaClienteCollectionNewHistoriaClienteToAttach : historiaClienteCollectionNew) {
-                historiaClienteCollectionNewHistoriaClienteToAttach = em.getReference(historiaClienteCollectionNewHistoriaClienteToAttach.getClass(), historiaClienteCollectionNewHistoriaClienteToAttach.getHistoriaClientePK());
-                attachedHistoriaClienteCollectionNew.add(historiaClienteCollectionNewHistoriaClienteToAttach);
-            }
-            historiaClienteCollectionNew = attachedHistoriaClienteCollectionNew;
-            cliente.setHistoriaClienteCollection(historiaClienteCollectionNew);
             cliente = em.merge(cliente);
-            for (HistoriaCliente historiaClienteCollectionNewHistoriaCliente : historiaClienteCollectionNew) {
-                if (!historiaClienteCollectionOld.contains(historiaClienteCollectionNewHistoriaCliente)) {
-                    Cliente oldClienteOfHistoriaClienteCollectionNewHistoriaCliente = historiaClienteCollectionNewHistoriaCliente.getCliente();
-                    historiaClienteCollectionNewHistoriaCliente.setCliente(cliente);
-                    historiaClienteCollectionNewHistoriaCliente = em.merge(historiaClienteCollectionNewHistoriaCliente);
-                    if (oldClienteOfHistoriaClienteCollectionNewHistoriaCliente != null && !oldClienteOfHistoriaClienteCollectionNewHistoriaCliente.equals(cliente)) {
-                        oldClienteOfHistoriaClienteCollectionNewHistoriaCliente.getHistoriaClienteCollection().remove(historiaClienteCollectionNewHistoriaCliente);
-                        oldClienteOfHistoriaClienteCollectionNewHistoriaCliente = em.merge(oldClienteOfHistoriaClienteCollectionNewHistoriaCliente);
-                    }
-                }
-            }
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -141,7 +84,7 @@ public class ClienteJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException, RollbackFailureException, Exception {
+    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
@@ -152,17 +95,6 @@ public class ClienteJpaController implements Serializable {
                 cliente.getCliid();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The cliente with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            Collection<HistoriaCliente> historiaClienteCollectionOrphanCheck = cliente.getHistoriaClienteCollection();
-            for (HistoriaCliente historiaClienteCollectionOrphanCheckHistoriaCliente : historiaClienteCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Cliente (" + cliente + ") cannot be destroyed since the HistoriaCliente " + historiaClienteCollectionOrphanCheckHistoriaCliente + " in its historiaClienteCollection field has a non-nullable cliente field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(cliente);
             utx.commit();

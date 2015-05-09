@@ -14,8 +14,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import MD.Documento;
-import MD.Documento;
-import MD.TipoDocumento;
 import MD.TipoDocumento;
 import java.util.ArrayList;
 import java.util.Collection;

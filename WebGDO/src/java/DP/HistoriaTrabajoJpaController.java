@@ -6,24 +6,16 @@
 package DP;
 
 import DP.exceptions.NonexistentEntityException;
-import DP.exceptions.PreexistingEntityException;
 import DP.exceptions.RollbackFailureException;
+import MD.HistoriaTrabajo;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import MD.Empleado;
-import MD.Empleado;
-import MD.HistoriaTrabajo;
-import MD.HistoriaTrabajo;
-import MD.HistoriaTrabajoPK;
-import MD.HistoriaTrabajoPK;
-import MD.Proyecto;
-import MD.Proyecto;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.transaction.UserTransaction;
 
 /**
@@ -43,44 +35,18 @@ public class HistoriaTrabajoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(HistoriaTrabajo historiaTrabajo) throws PreexistingEntityException, RollbackFailureException, Exception {
-        if (historiaTrabajo.getHistoriaTrabajoPK() == null) {
-            historiaTrabajo.setHistoriaTrabajoPK(new HistoriaTrabajoPK());
-        }
-        historiaTrabajo.getHistoriaTrabajoPK().setEmpid(historiaTrabajo.getEmpleado().getEmpid());
-        historiaTrabajo.getHistoriaTrabajoPK().setProid(historiaTrabajo.getProyecto().getProid());
+    public void create(HistoriaTrabajo historiaTrabajo) throws RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            Empleado empleado = historiaTrabajo.getEmpleado();
-            if (empleado != null) {
-                empleado = em.getReference(empleado.getClass(), empleado.getEmpid());
-                historiaTrabajo.setEmpleado(empleado);
-            }
-            Proyecto proyecto = historiaTrabajo.getProyecto();
-            if (proyecto != null) {
-                proyecto = em.getReference(proyecto.getClass(), proyecto.getProid());
-                historiaTrabajo.setProyecto(proyecto);
-            }
             em.persist(historiaTrabajo);
-            if (empleado != null) {
-                empleado.getHistoriaTrabajoCollection().add(historiaTrabajo);
-                empleado = em.merge(empleado);
-            }
-            if (proyecto != null) {
-                proyecto.getHistoriaTrabajoCollection().add(historiaTrabajo);
-                proyecto = em.merge(proyecto);
-            }
             utx.commit();
         } catch (Exception ex) {
             try {
                 utx.rollback();
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
-            }
-            if (findHistoriaTrabajo(historiaTrabajo.getHistoriaTrabajoPK()) != null) {
-                throw new PreexistingEntityException("HistoriaTrabajo " + historiaTrabajo + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -91,42 +57,11 @@ public class HistoriaTrabajoJpaController implements Serializable {
     }
 
     public void edit(HistoriaTrabajo historiaTrabajo) throws NonexistentEntityException, RollbackFailureException, Exception {
-        historiaTrabajo.getHistoriaTrabajoPK().setEmpid(historiaTrabajo.getEmpleado().getEmpid());
-        historiaTrabajo.getHistoriaTrabajoPK().setProid(historiaTrabajo.getProyecto().getProid());
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            HistoriaTrabajo persistentHistoriaTrabajo = em.find(HistoriaTrabajo.class, historiaTrabajo.getHistoriaTrabajoPK());
-            Empleado empleadoOld = persistentHistoriaTrabajo.getEmpleado();
-            Empleado empleadoNew = historiaTrabajo.getEmpleado();
-            Proyecto proyectoOld = persistentHistoriaTrabajo.getProyecto();
-            Proyecto proyectoNew = historiaTrabajo.getProyecto();
-            if (empleadoNew != null) {
-                empleadoNew = em.getReference(empleadoNew.getClass(), empleadoNew.getEmpid());
-                historiaTrabajo.setEmpleado(empleadoNew);
-            }
-            if (proyectoNew != null) {
-                proyectoNew = em.getReference(proyectoNew.getClass(), proyectoNew.getProid());
-                historiaTrabajo.setProyecto(proyectoNew);
-            }
             historiaTrabajo = em.merge(historiaTrabajo);
-            if (empleadoOld != null && !empleadoOld.equals(empleadoNew)) {
-                empleadoOld.getHistoriaTrabajoCollection().remove(historiaTrabajo);
-                empleadoOld = em.merge(empleadoOld);
-            }
-            if (empleadoNew != null && !empleadoNew.equals(empleadoOld)) {
-                empleadoNew.getHistoriaTrabajoCollection().add(historiaTrabajo);
-                empleadoNew = em.merge(empleadoNew);
-            }
-            if (proyectoOld != null && !proyectoOld.equals(proyectoNew)) {
-                proyectoOld.getHistoriaTrabajoCollection().remove(historiaTrabajo);
-                proyectoOld = em.merge(proyectoOld);
-            }
-            if (proyectoNew != null && !proyectoNew.equals(proyectoOld)) {
-                proyectoNew.getHistoriaTrabajoCollection().add(historiaTrabajo);
-                proyectoNew = em.merge(proyectoNew);
-            }
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -136,7 +71,7 @@ public class HistoriaTrabajoJpaController implements Serializable {
             }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                HistoriaTrabajoPK id = historiaTrabajo.getHistoriaTrabajoPK();
+                Integer id = historiaTrabajo.getHtid();
                 if (findHistoriaTrabajo(id) == null) {
                     throw new NonexistentEntityException("The historiaTrabajo with id " + id + " no longer exists.");
                 }
@@ -149,7 +84,7 @@ public class HistoriaTrabajoJpaController implements Serializable {
         }
     }
 
-    public void destroy(HistoriaTrabajoPK id) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
@@ -157,19 +92,9 @@ public class HistoriaTrabajoJpaController implements Serializable {
             HistoriaTrabajo historiaTrabajo;
             try {
                 historiaTrabajo = em.getReference(HistoriaTrabajo.class, id);
-                historiaTrabajo.getHistoriaTrabajoPK();
+                historiaTrabajo.getHtid();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The historiaTrabajo with id " + id + " no longer exists.", enfe);
-            }
-            Empleado empleado = historiaTrabajo.getEmpleado();
-            if (empleado != null) {
-                empleado.getHistoriaTrabajoCollection().remove(historiaTrabajo);
-                empleado = em.merge(empleado);
-            }
-            Proyecto proyecto = historiaTrabajo.getProyecto();
-            if (proyecto != null) {
-                proyecto.getHistoriaTrabajoCollection().remove(historiaTrabajo);
-                proyecto = em.merge(proyecto);
             }
             em.remove(historiaTrabajo);
             utx.commit();
@@ -211,7 +136,7 @@ public class HistoriaTrabajoJpaController implements Serializable {
         }
     }
 
-    public HistoriaTrabajo findHistoriaTrabajo(HistoriaTrabajoPK id) {
+    public HistoriaTrabajo findHistoriaTrabajo(Integer id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(HistoriaTrabajo.class, id);

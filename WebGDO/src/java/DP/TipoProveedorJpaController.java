@@ -14,8 +14,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import MD.Proveedor;
-import MD.Proveedor;
-import MD.TipoProveedor;
 import MD.TipoProveedor;
 import java.util.ArrayList;
 import java.util.Collection;

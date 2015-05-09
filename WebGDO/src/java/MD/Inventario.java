@@ -119,13 +119,13 @@ public class Inventario implements Serializable, Entidad {
     }
 
     @Override
-    public Object getID() {
+    public Object getIdentidad() {
         return this.getInventarioPK();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return "Inventario " + this.getProyecto().getPronombre();
+        return "Inventario de " + this.getProyecto().getPronombre();
     }
     
 }

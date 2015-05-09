@@ -147,13 +147,13 @@ public class Documento implements Serializable, Entidad {
     }
 
     @Override
-    public Object getID() {
-        return getDocid();
+    public Object getIdentidad() {
+        return this.getDocid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return getDocdescripcion();
+        return this.getDocdescripcion();
     }
     
 }

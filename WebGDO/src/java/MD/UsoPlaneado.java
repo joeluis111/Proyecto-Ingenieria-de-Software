@@ -119,13 +119,13 @@ public class UsoPlaneado implements Serializable, Entidad {
     }
 
     @Override
-    public Object getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getIdentidad() {
+        return this.getUsoPlaneadoPK();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Uso de " + this.getMaterial().getMatnombre() + " en proyecto " + this.getProyecto().getPronombre();
     }
     
 }

@@ -124,13 +124,13 @@ public class TipoMaterial implements Serializable, Entidad {
     }
 
     @Override
-    public Object getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getIdentidad() {
+        return this.getTmid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getTmnombre();
     }
     
 }

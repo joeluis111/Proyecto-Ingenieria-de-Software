@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * @author Kenny
  */
 @Embeddable
-public class UsoPlaneadoPK implements Serializable, Entidad {
+public class UsoPlaneadoPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "PROID")
@@ -77,16 +77,6 @@ public class UsoPlaneadoPK implements Serializable, Entidad {
     @Override
     public String toString() {
         return "MD.UsoPlaneadoPK[ proid=" + proid + ", matid=" + matid + " ]";
-    }
-
-    @Override
-    public Object getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

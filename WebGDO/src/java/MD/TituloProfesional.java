@@ -31,9 +31,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "titulosprofesionales")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TituloProfesional.findAll", query = "SELECT t FROM TituloProfesional t"),
-    @NamedQuery(name = "TituloProfesional.findByTpid", query = "SELECT t FROM TituloProfesional t WHERE t.tpid = :tpid"),
-    @NamedQuery(name = "TituloProfesional.findByTpnombre", query = "SELECT t FROM TituloProfesional t WHERE t.tpnombre = :tpnombre")})
+    @NamedQuery(name = "TituloProfesionales.findAll", query = "SELECT t FROM TituloProfesionales t"),
+    @NamedQuery(name = "TituloProfesionales.findByTpid", query = "SELECT t FROM TituloProfesionales t WHERE t.tpid = :tpid"),
+    @NamedQuery(name = "TituloProfesionales.findByTpnombre", query = "SELECT t FROM TituloProfesionales t WHERE t.tpnombre = :tpnombre")})
 public class TituloProfesional implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
@@ -108,17 +108,17 @@ public class TituloProfesional implements Serializable, Entidad {
 
     @Override
     public String toString() {
-        return "MD.TituloProfesional[ tpid=" + tpid + " ]";
+        return "MD.TituloProfesionales[ tpid=" + tpid + " ]";
     }
 
     @Override
-    public Object getID() {
-        return getTpid();
+    public Object getIdentidad() {
+        return this.getTpid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return getTpnombre();
+        return this.getTpnombre();
     }
     
 }

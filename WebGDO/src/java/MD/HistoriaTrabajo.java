@@ -9,10 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,22 +25,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Kenny
  */
-// TODO: Arreglar esta tabla en la base de datos, la clave
-// primaria debería ser propia de la tabla, no una combinación
-// de las otras claves primarias.
 @Entity
 @Table(name = "historiatrabajo")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "HistoriaTrabajo.findAll", query = "SELECT h FROM HistoriaTrabajo h"),
-    @NamedQuery(name = "HistoriaTrabajo.findByProid", query = "SELECT h FROM HistoriaTrabajo h WHERE h.historiaTrabajoPK.proid = :proid"),
-    @NamedQuery(name = "HistoriaTrabajo.findByEmpid", query = "SELECT h FROM HistoriaTrabajo h WHERE h.historiaTrabajoPK.empid = :empid"),
+    @NamedQuery(name = "HistoriaTrabajo.findByProid", query = "SELECT h FROM HistoriaTrabajo h WHERE h.proid = :proid"),
+    @NamedQuery(name = "HistoriaTrabajo.findByEmpid", query = "SELECT h FROM HistoriaTrabajo h WHERE h.empid = :empid"),
     @NamedQuery(name = "HistoriaTrabajo.findByHtfechainicio", query = "SELECT h FROM HistoriaTrabajo h WHERE h.htfechainicio = :htfechainicio"),
-    @NamedQuery(name = "HistoriaTrabajo.findByHtfechafin", query = "SELECT h FROM HistoriaTrabajo h WHERE h.htfechafin = :htfechafin")})
+    @NamedQuery(name = "HistoriaTrabajo.findByHtfechafin", query = "SELECT h FROM HistoriaTrabajo h WHERE h.htfechafin = :htfechafin"),
+    @NamedQuery(name = "HistoriaTrabajo.findByHtid", query = "SELECT h FROM HistoriaTrabajo h WHERE h.htid = :htid")})
 public class HistoriaTrabajo implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected HistoriaTrabajoPK historiaTrabajoPK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PROID")
+    private int proid;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "EMPID")
+    private int empid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HTFECHAINICIO")
@@ -49,35 +53,40 @@ public class HistoriaTrabajo implements Serializable, Entidad {
     @Column(name = "HTFECHAFIN")
     @Temporal(TemporalType.DATE)
     private Date htfechafin;
-    @JoinColumn(name = "EMPID", referencedColumnName = "EMPID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Empleado empleado;
-    @JoinColumn(name = "PROID", referencedColumnName = "PROID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Proyecto proyecto;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "htid")
+    private Integer htid;
 
     public HistoriaTrabajo() {
     }
 
-    public HistoriaTrabajo(HistoriaTrabajoPK historiaTrabajoPK) {
-        this.historiaTrabajoPK = historiaTrabajoPK;
+    public HistoriaTrabajo(Integer htid) {
+        this.htid = htid;
     }
 
-    public HistoriaTrabajo(HistoriaTrabajoPK historiaTrabajoPK, Date htfechainicio) {
-        this.historiaTrabajoPK = historiaTrabajoPK;
+    public HistoriaTrabajo(Integer htid, int proid, int empid, Date htfechainicio) {
+        this.htid = htid;
+        this.proid = proid;
+        this.empid = empid;
         this.htfechainicio = htfechainicio;
     }
 
-    public HistoriaTrabajo(int proid, int empid) {
-        this.historiaTrabajoPK = new HistoriaTrabajoPK(proid, empid);
+    public int getProid() {
+        return proid;
     }
 
-    public HistoriaTrabajoPK getHistoriaTrabajoPK() {
-        return historiaTrabajoPK;
+    public void setProid(int proid) {
+        this.proid = proid;
     }
 
-    public void setHistoriaTrabajoPK(HistoriaTrabajoPK historiaTrabajoPK) {
-        this.historiaTrabajoPK = historiaTrabajoPK;
+    public int getEmpid() {
+        return empid;
+    }
+
+    public void setEmpid(int empid) {
+        this.empid = empid;
     }
 
     public Date getHtfechainicio() {
@@ -96,26 +105,18 @@ public class HistoriaTrabajo implements Serializable, Entidad {
         this.htfechafin = htfechafin;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public Integer getHtid() {
+        return htid;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
-
-    public Proyecto getProyecto() {
-        return proyecto;
-    }
-
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
+    public void setHtid(Integer htid) {
+        this.htid = htid;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (historiaTrabajoPK != null ? historiaTrabajoPK.hashCode() : 0);
+        hash += (htid != null ? htid.hashCode() : 0);
         return hash;
     }
 
@@ -126,7 +127,7 @@ public class HistoriaTrabajo implements Serializable, Entidad {
             return false;
         }
         HistoriaTrabajo other = (HistoriaTrabajo) object;
-        if ((this.historiaTrabajoPK == null && other.historiaTrabajoPK != null) || (this.historiaTrabajoPK != null && !this.historiaTrabajoPK.equals(other.historiaTrabajoPK))) {
+        if ((this.htid == null && other.htid != null) || (this.htid != null && !this.htid.equals(other.htid))) {
             return false;
         }
         return true;
@@ -134,17 +135,17 @@ public class HistoriaTrabajo implements Serializable, Entidad {
 
     @Override
     public String toString() {
-        return "MD.HistoriaTrabajo[ historiaTrabajoPK=" + historiaTrabajoPK + " ]";
+        return "MD.HistoriaTrabajo[ htid=" + htid + " ]";
     }
 
     @Override
-    public Object getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getIdentidad() {
+        return this.getHtid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Historia Trabajo " + Integer.toString(this.getHtid());
     }
     
 }

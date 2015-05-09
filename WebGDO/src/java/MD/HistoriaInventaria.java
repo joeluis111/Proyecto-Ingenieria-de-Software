@@ -9,10 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -25,22 +25,26 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Kenny
  */
-// TODO: Arreglar esta tabla en la base de datos, la clave
-// primaria debería ser propia de la tabla, no una combinación
-// de las otras claves primarias.
 @Entity
 @Table(name = "historiainventaria")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "HistoriaInventaria.findAll", query = "SELECT h FROM HistoriaInventaria h"),
-    @NamedQuery(name = "HistoriaInventaria.findByMatid", query = "SELECT h FROM HistoriaInventaria h WHERE h.historiaInventariaPK.matid = :matid"),
-    @NamedQuery(name = "HistoriaInventaria.findByProid", query = "SELECT h FROM HistoriaInventaria h WHERE h.historiaInventariaPK.proid = :proid"),
+    @NamedQuery(name = "HistoriaInventaria.findByMatid", query = "SELECT h FROM HistoriaInventaria h WHERE h.matid = :matid"),
+    @NamedQuery(name = "HistoriaInventaria.findByProid", query = "SELECT h FROM HistoriaInventaria h WHERE h.proid = :proid"),
     @NamedQuery(name = "HistoriaInventaria.findByHistnumerousado", query = "SELECT h FROM HistoriaInventaria h WHERE h.histnumerousado = :histnumerousado"),
-    @NamedQuery(name = "HistoriaInventaria.findByHistfechauso", query = "SELECT h FROM HistoriaInventaria h WHERE h.histfechauso = :histfechauso")})
+    @NamedQuery(name = "HistoriaInventaria.findByHistfechauso", query = "SELECT h FROM HistoriaInventaria h WHERE h.histfechauso = :histfechauso"),
+    @NamedQuery(name = "HistoriaInventaria.findByHistid", query = "SELECT h FROM HistoriaInventaria h WHERE h.histid = :histid")})
 public class HistoriaInventaria implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected HistoriaInventariaPK historiaInventariaPK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "MATID")
+    private int matid;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PROID")
+    private int proid;
     @Basic(optional = false)
     @NotNull
     @Column(name = "HISTNUMEROUSADO")
@@ -50,36 +54,41 @@ public class HistoriaInventaria implements Serializable, Entidad {
     @Column(name = "HISTFECHAUSO")
     @Temporal(TemporalType.DATE)
     private Date histfechauso;
-    @JoinColumn(name = "PROID", referencedColumnName = "PROID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Proyecto proyecto;
-    @JoinColumn(name = "MATID", referencedColumnName = "MATID", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Material material;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "histid")
+    private Integer histid;
 
     public HistoriaInventaria() {
     }
 
-    public HistoriaInventaria(HistoriaInventariaPK historiaInventariaPK) {
-        this.historiaInventariaPK = historiaInventariaPK;
+    public HistoriaInventaria(Integer histid) {
+        this.histid = histid;
     }
 
-    public HistoriaInventaria(HistoriaInventariaPK historiaInventariaPK, int histnumerousado, Date histfechauso) {
-        this.historiaInventariaPK = historiaInventariaPK;
+    public HistoriaInventaria(Integer histid, int matid, int proid, int histnumerousado, Date histfechauso) {
+        this.histid = histid;
+        this.matid = matid;
+        this.proid = proid;
         this.histnumerousado = histnumerousado;
         this.histfechauso = histfechauso;
     }
 
-    public HistoriaInventaria(int matid, int proid) {
-        this.historiaInventariaPK = new HistoriaInventariaPK(matid, proid);
+    public int getMatid() {
+        return matid;
     }
 
-    public HistoriaInventariaPK getHistoriaInventariaPK() {
-        return historiaInventariaPK;
+    public void setMatid(int matid) {
+        this.matid = matid;
     }
 
-    public void setHistoriaInventariaPK(HistoriaInventariaPK historiaInventariaPK) {
-        this.historiaInventariaPK = historiaInventariaPK;
+    public int getProid() {
+        return proid;
+    }
+
+    public void setProid(int proid) {
+        this.proid = proid;
     }
 
     public int getHistnumerousado() {
@@ -98,26 +107,18 @@ public class HistoriaInventaria implements Serializable, Entidad {
         this.histfechauso = histfechauso;
     }
 
-    public Proyecto getProyecto() {
-        return proyecto;
+    public Integer getHistid() {
+        return histid;
     }
 
-    public void setProyecto(Proyecto proyecto) {
-        this.proyecto = proyecto;
-    }
-
-    public Material getMaterial() {
-        return material;
-    }
-
-    public void setMaterial(Material material) {
-        this.material = material;
+    public void setHistid(Integer histid) {
+        this.histid = histid;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (historiaInventariaPK != null ? historiaInventariaPK.hashCode() : 0);
+        hash += (histid != null ? histid.hashCode() : 0);
         return hash;
     }
 
@@ -128,7 +129,7 @@ public class HistoriaInventaria implements Serializable, Entidad {
             return false;
         }
         HistoriaInventaria other = (HistoriaInventaria) object;
-        if ((this.historiaInventariaPK == null && other.historiaInventariaPK != null) || (this.historiaInventariaPK != null && !this.historiaInventariaPK.equals(other.historiaInventariaPK))) {
+        if ((this.histid == null && other.histid != null) || (this.histid != null && !this.histid.equals(other.histid))) {
             return false;
         }
         return true;
@@ -136,17 +137,17 @@ public class HistoriaInventaria implements Serializable, Entidad {
 
     @Override
     public String toString() {
-        return "MD.HistoriaInventaria[ historiaInventariaPK=" + historiaInventariaPK + " ]";
+        return "MD.HistoriaInventaria[ histid=" + histid + " ]";
     }
 
     @Override
-    public Object getID() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object getIdentidad() {
+        return this.getHistid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Historia Inventaria " + Integer.toString(this.getHistid());
     }
     
 }

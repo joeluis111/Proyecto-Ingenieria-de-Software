@@ -10,6 +10,6 @@ package MD;
  * @author Kenny
  */
 public interface Entidad {
-    Object getID();
+    Object getIdentidad();
     String getCadenaDesplegable();
 }

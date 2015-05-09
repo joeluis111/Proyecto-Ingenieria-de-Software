@@ -13,8 +13,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import MD.Calendario;
-import MD.Calendario;
-import MD.Evento;
 import MD.Evento;
 import java.util.ArrayList;
 import java.util.Collection;
