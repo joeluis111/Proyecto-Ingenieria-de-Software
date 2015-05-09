@@ -43,8 +43,4 @@ Temporary Items
 .apdisk
 
 # Java Files To Ignore
-WebGDO/build/
-WebGDO/nbproject/
-WebGDO/setup/
-build.xml
 *.class

@@ -25,6 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Kenny
  */
+// TODO: Arreglar esta tabla en la base de datos, la clave
+// primaria debería ser propia de la tabla, no una combinación
+// de las otras claves primarias.
 @Entity
 @Table(name = "historiacliente")
 @XmlRootElement
@@ -34,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HistoriaCliente.findByProid", query = "SELECT h FROM HistoriaCliente h WHERE h.historiaClientePK.proid = :proid"),
     @NamedQuery(name = "HistoriaCliente.findByHcfechainicio", query = "SELECT h FROM HistoriaCliente h WHERE h.hcfechainicio = :hcfechainicio"),
     @NamedQuery(name = "HistoriaCliente.findByHcfechafin", query = "SELECT h FROM HistoriaCliente h WHERE h.hcfechafin = :hcfechafin")})
-public class HistoriaCliente implements Serializable {
+public class HistoriaCliente implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected HistoriaClientePK historiaClientePK;
@@ -132,6 +135,16 @@ public class HistoriaCliente implements Serializable {
     @Override
     public String toString() {
         return "MD.HistoriaCliente[ historiaClientePK=" + historiaClientePK + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        return this.getHistoriaClientePK();
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        return "";
     }
     
 }

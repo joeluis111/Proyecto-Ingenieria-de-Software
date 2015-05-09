@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Evento.findByEvfechafinplaneada", query = "SELECT e FROM Evento e WHERE e.evfechafinplaneada = :evfechafinplaneada"),
     @NamedQuery(name = "Evento.findByEvfechainicioreal", query = "SELECT e FROM Evento e WHERE e.evfechainicioreal = :evfechainicioreal"),
     @NamedQuery(name = "Evento.findByEvfechafinreal", query = "SELECT e FROM Evento e WHERE e.evfechafinreal = :evfechafinreal")})
-public class Evento implements Serializable {
+public class Evento implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -208,6 +208,16 @@ public class Evento implements Serializable {
     @Override
     public String toString() {
         return "MD.Evento[ evid=" + evid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        return getEvid();
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        return getEvnombre();
     }
     
 }

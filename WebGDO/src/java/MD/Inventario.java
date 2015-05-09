@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Inventario.findByMatid", query = "SELECT i FROM Inventario i WHERE i.inventarioPK.matid = :matid"),
     @NamedQuery(name = "Inventario.findByProid", query = "SELECT i FROM Inventario i WHERE i.inventarioPK.proid = :proid"),
     @NamedQuery(name = "Inventario.findByInvnumerounidades", query = "SELECT i FROM Inventario i WHERE i.invnumerounidades = :invnumerounidades")})
-public class Inventario implements Serializable {
+public class Inventario implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected InventarioPK inventarioPK;
@@ -116,6 +116,16 @@ public class Inventario implements Serializable {
     @Override
     public String toString() {
         return "MD.Inventario[ inventarioPK=" + inventarioPK + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        return this.getInventarioPK();
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        return "Inventario " + this.getProyecto().getPronombre();
     }
     
 }

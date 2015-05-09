@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Proyecto.findAll", query = "SELECT p FROM Proyecto p"),
     @NamedQuery(name = "Proyecto.findByProid", query = "SELECT p FROM Proyecto p WHERE p.proid = :proid"),
     @NamedQuery(name = "Proyecto.findByPronombre", query = "SELECT p FROM Proyecto p WHERE p.pronombre = :pronombre")})
-public class Proyecto implements Serializable {
+public class Proyecto implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -175,6 +175,16 @@ public class Proyecto implements Serializable {
     @Override
     public String toString() {
         return "MD.Proyecto[ proid=" + proid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

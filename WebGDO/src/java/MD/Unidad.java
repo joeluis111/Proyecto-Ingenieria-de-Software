@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Unidad.findAll", query = "SELECT u FROM Unidad u"),
     @NamedQuery(name = "Unidad.findByUnid", query = "SELECT u FROM Unidad u WHERE u.unid = :unid"),
     @NamedQuery(name = "Unidad.findByUnnombre", query = "SELECT u FROM Unidad u WHERE u.unnombre = :unnombre")})
-public class Unidad implements Serializable {
+public class Unidad implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,6 +109,16 @@ public class Unidad implements Serializable {
     @Override
     public String toString() {
         return "MD.Unidad[ unid=" + unid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

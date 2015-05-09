@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"),
     @NamedQuery(name = "Documento.findByDocid", query = "SELECT d FROM Documento d WHERE d.docid = :docid"),
     @NamedQuery(name = "Documento.findByDocdescripcion", query = "SELECT d FROM Documento d WHERE d.docdescripcion = :docdescripcion")})
-public class Documento implements Serializable {
+public class Documento implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -144,6 +144,16 @@ public class Documento implements Serializable {
     @Override
     public String toString() {
         return "MD.Documento[ docid=" + docid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        return getDocid();
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        return getDocdescripcion();
     }
     
 }

@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
     @NamedQuery(name = "Proveedor.findByProvid", query = "SELECT p FROM Proveedor p WHERE p.provid = :provid"),
     @NamedQuery(name = "Proveedor.findByProvnombre", query = "SELECT p FROM Proveedor p WHERE p.provnombre = :provnombre")})
-public class Proveedor implements Serializable {
+public class Proveedor implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -125,6 +125,16 @@ public class Proveedor implements Serializable {
     @Override
     public String toString() {
         return "MD.Proveedor[ provid=" + provid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

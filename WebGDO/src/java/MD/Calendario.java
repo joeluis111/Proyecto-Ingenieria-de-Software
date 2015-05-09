@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Calendario.findAll", query = "SELECT c FROM Calendario c"),
     @NamedQuery(name = "Calendario.findByCalid", query = "SELECT c FROM Calendario c WHERE c.calid = :calid")})
-public class Calendario implements Serializable {
+public class Calendario implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -101,6 +101,16 @@ public class Calendario implements Serializable {
     @Override
     public String toString() {
         return "MD.Calendario[ calid=" + calid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        return getCalid();
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        return "Calendario de Proyecto " + this.getProid().getPronombre();
     }
     
 }

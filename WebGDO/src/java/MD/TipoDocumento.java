@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoDocumento.findAll", query = "SELECT t FROM TipoDocumento t"),
     @NamedQuery(name = "TipoDocumento.findByTdocid", query = "SELECT t FROM TipoDocumento t WHERE t.tdocid = :tdocid"),
     @NamedQuery(name = "TipoDocumento.findByTdocnombre", query = "SELECT t FROM TipoDocumento t WHERE t.tdocnombre = :tdocnombre")})
-public class TipoDocumento implements Serializable {
+public class TipoDocumento implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -109,6 +109,16 @@ public class TipoDocumento implements Serializable {
     @Override
     public String toString() {
         return "MD.TipoDocumento[ tdocid=" + tdocid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

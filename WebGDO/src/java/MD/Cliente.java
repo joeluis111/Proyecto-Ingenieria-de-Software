@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Cliente.findByCliapellidos", query = "SELECT c FROM Cliente c WHERE c.cliapellidos = :cliapellidos"),
     @NamedQuery(name = "Cliente.findByClidireccion", query = "SELECT c FROM Cliente c WHERE c.clidireccion = :clidireccion"),
     @NamedQuery(name = "Cliente.findByClicodigopostal", query = "SELECT c FROM Cliente c WHERE c.clicodigopostal = :clicodigopostal")})
-public class Cliente implements Serializable {
+public class Cliente implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -154,6 +154,16 @@ public class Cliente implements Serializable {
     @Override
     public String toString() {
         return "MD.Cliente[ cliid=" + cliid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        return getCliid();
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        return getClinombres() + getCliapellidos();
     }
     
 }

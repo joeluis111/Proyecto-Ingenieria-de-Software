@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoTrabajador.findAll", query = "SELECT t FROM TipoTrabajador t"),
     @NamedQuery(name = "TipoTrabajador.findByTtid", query = "SELECT t FROM TipoTrabajador t WHERE t.ttid = :ttid"),
     @NamedQuery(name = "TipoTrabajador.findByTtnombre", query = "SELECT t FROM TipoTrabajador t WHERE t.ttnombre = :ttnombre")})
-public class TipoTrabajador implements Serializable {
+public class TipoTrabajador implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -108,6 +108,16 @@ public class TipoTrabajador implements Serializable {
     @Override
     public String toString() {
         return "MD.TipoTrabajador[ ttid=" + ttid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        return getTtid();
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        return getTtnombre();
     }
     
 }

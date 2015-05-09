@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Empleado.findByEmpgenero", query = "SELECT e FROM Empleado e WHERE e.empgenero = :empgenero"),
     @NamedQuery(name = "Empleado.findByEmpnumerotelefono", query = "SELECT e FROM Empleado e WHERE e.empnumerotelefono = :empnumerotelefono"),
     @NamedQuery(name = "Empleado.findByEmpapellidos", query = "SELECT e FROM Empleado e WHERE e.empapellidos = :empapellidos")})
-public class Empleado implements Serializable {
+public class Empleado implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -251,6 +251,16 @@ public class Empleado implements Serializable {
     @Override
     public String toString() {
         return "MD.Empleado[ empid=" + empid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        return getEmpid();
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        return getEmpnombres() + getEmpapellidos();
     }
     
 }

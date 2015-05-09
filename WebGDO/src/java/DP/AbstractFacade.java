@@ -5,14 +5,16 @@
  */
 package DP;
 
+import MD.Entidad;
 import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author Kenny
+ * @param <T>
  */
-public abstract class AbstractFacade<T> {
+public abstract class AbstractFacade<T extends Entidad> {
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {

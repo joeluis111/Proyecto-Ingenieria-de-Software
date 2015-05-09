@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  * @author Kenny
  */
 @Embeddable
-public class HistoriaClientePK implements Serializable {
+public class HistoriaClientePK implements Serializable, Entidad {
     @Basic(optional = false)
     @NotNull
     @Column(name = "CLIID")
@@ -77,6 +77,16 @@ public class HistoriaClientePK implements Serializable {
     @Override
     public String toString() {
         return "MD.HistoriaClientePK[ cliid=" + cliid + ", proid=" + proid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -25,6 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author Kenny
  */
+// TODO: Arreglar esta tabla en la base de datos, la clave
+// primaria debería ser propia de la tabla, no una combinación
+// de las otras claves primarias.
 @Entity
 @Table(name = "historiatrabajo")
 @XmlRootElement
@@ -34,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "HistoriaTrabajo.findByEmpid", query = "SELECT h FROM HistoriaTrabajo h WHERE h.historiaTrabajoPK.empid = :empid"),
     @NamedQuery(name = "HistoriaTrabajo.findByHtfechainicio", query = "SELECT h FROM HistoriaTrabajo h WHERE h.htfechainicio = :htfechainicio"),
     @NamedQuery(name = "HistoriaTrabajo.findByHtfechafin", query = "SELECT h FROM HistoriaTrabajo h WHERE h.htfechafin = :htfechafin")})
-public class HistoriaTrabajo implements Serializable {
+public class HistoriaTrabajo implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected HistoriaTrabajoPK historiaTrabajoPK;
@@ -132,6 +135,16 @@ public class HistoriaTrabajo implements Serializable {
     @Override
     public String toString() {
         return "MD.HistoriaTrabajo[ historiaTrabajoPK=" + historiaTrabajoPK + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

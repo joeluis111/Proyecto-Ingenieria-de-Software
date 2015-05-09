@@ -20,10 +20,9 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -31,7 +30,7 @@ import org.primefaces.context.RequestContext;
  * @author Kenny
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class PaginaPrincipalGUI implements Serializable {
     private HtmlPanelGroup menu = new HtmlPanelGroup();
     

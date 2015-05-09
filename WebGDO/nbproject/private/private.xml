@@ -3,16 +3,38 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/conf/persistence.xml</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/HistoriaInventaria.java</file>
             <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/PaginaPrincipalGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/MaterialGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/InventarioGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/UtilidadesGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/ProyectoGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/GUIAbstracta.java</file>
-            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/ClienteGUI.java</file>
-            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/EmpleadoGUI.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/DP/ClienteFacade.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/DP/AbstractFacade.java</file>
             <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/TituloProfesional.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/HistoriaTrabajoPK.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/Proveedor.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/Proyecto.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/TipoDocumento.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/UsoPlaneado.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/HistoriaTrabajo.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/TipoProveedor.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/EmpleadoGUI.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/UsoPlaneadoPK.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/Entidad.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/Material.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/Documento.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/GUI/UtilidadesGUI.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/Empleado.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/DP/CalendarioFacade.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/web/index.xhtml</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/Evento.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/Calendario.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/Cliente.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/Unidad.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/InventarioPK.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/Inventario.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/HistoriaCliente.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/HistoriaInventariaPK.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/HistoriaClientePK.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/TipoTrabajador.java</file>
+            <file>file:/C:/Users/Kenny/Documents/GitHub/Proyecto-Ingenieria-de-Software/WebGDO/src/java/MD/TipoMaterial.java</file>
         </group>
     </open-files>
 </project-private>

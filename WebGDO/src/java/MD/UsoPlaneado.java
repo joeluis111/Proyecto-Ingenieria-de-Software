@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "UsoPlaneado.findByProid", query = "SELECT u FROM UsoPlaneado u WHERE u.usoPlaneadoPK.proid = :proid"),
     @NamedQuery(name = "UsoPlaneado.findByMatid", query = "SELECT u FROM UsoPlaneado u WHERE u.usoPlaneadoPK.matid = :matid"),
     @NamedQuery(name = "UsoPlaneado.findByUpnumero", query = "SELECT u FROM UsoPlaneado u WHERE u.upnumero = :upnumero")})
-public class UsoPlaneado implements Serializable {
+public class UsoPlaneado implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected UsoPlaneadoPK usoPlaneadoPK;
@@ -116,6 +116,16 @@ public class UsoPlaneado implements Serializable {
     @Override
     public String toString() {
         return "MD.UsoPlaneado[ usoPlaneadoPK=" + usoPlaneadoPK + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

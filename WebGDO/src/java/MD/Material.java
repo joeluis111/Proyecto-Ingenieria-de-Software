@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Material.findAll", query = "SELECT m FROM Material m"),
     @NamedQuery(name = "Material.findByMatid", query = "SELECT m FROM Material m WHERE m.matid = :matid"),
     @NamedQuery(name = "Material.findByMatnombre", query = "SELECT m FROM Material m WHERE m.matnombre = :matnombre")})
-public class Material implements Serializable {
+public class Material implements Serializable, Entidad {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -167,6 +167,16 @@ public class Material implements Serializable {
     @Override
     public String toString() {
         return "MD.Material[ matid=" + matid + " ]";
+    }
+
+    @Override
+    public Object getID() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCadenaDesplegable() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

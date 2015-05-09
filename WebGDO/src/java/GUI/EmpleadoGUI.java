@@ -84,15 +84,10 @@ public class EmpleadoGUI extends GUIAbstracta implements Serializable {
         cuadricula.setColumns(5);
         Iterator<Empleado> iterator = empleadoFacade.findAll().iterator();
         
-        HtmlOutputText columnaNombres = new HtmlOutputText();
-        HtmlOutputText columnaApellidos = new HtmlOutputText();
-        HtmlOutputText columnaTitulo = new HtmlOutputText();
-        HtmlOutputText columnaTipo = new HtmlOutputText();
-        
-        columnaNombres.setValue("Nombres");
-        columnaApellidos.setValue("Apellidos");
-        columnaTitulo.setValue("Título");
-        columnaTipo.setValue("Tipo de Trabajador");
+        HtmlOutputText columnaNombres = UtilidadesGUI.crearTexto("Nombres");
+        HtmlOutputText columnaApellidos = UtilidadesGUI.crearTexto("Apellidos");
+        HtmlOutputText columnaTitulo = UtilidadesGUI.crearTexto("Título");
+        HtmlOutputText columnaTipo = UtilidadesGUI.crearTexto("Tipo de Trabajador");
         
         cuadricula.getChildren().add(columnaNombres);
         cuadricula.getChildren().add(columnaApellidos);
@@ -119,14 +114,10 @@ public class EmpleadoGUI extends GUIAbstracta implements Serializable {
     }
     
     private void desplegarRegistro(Empleado e, HtmlPanelGrid cuadricula) {
-        HtmlOutputText nombres = new HtmlOutputText();
-        HtmlOutputText apellidos = new HtmlOutputText();
-        HtmlOutputText titulo = new HtmlOutputText();
-        HtmlOutputText tipo = new HtmlOutputText();
-        nombres.setValue(e.getEmpnombres());
-        apellidos.setValue(e.getEmpapellidos());
-        titulo.setValue(e.getTpid().getTpnombre());
-        tipo.setValue(e.getTtid().getTtnombre());
+        HtmlOutputText nombres = UtilidadesGUI.crearTexto(e.getEmpnombres());
+        HtmlOutputText apellidos = UtilidadesGUI.crearTexto(e.getEmpapellidos());
+        HtmlOutputText titulo = UtilidadesGUI.crearTexto(e.getTpid().getTpnombre());
+        HtmlOutputText tipo = UtilidadesGUI.crearTexto(e.getTtid().getTtnombre());
         
         cuadricula.getChildren().add(nombres);
         cuadricula.getChildren().add(apellidos);
@@ -216,28 +207,10 @@ public class EmpleadoGUI extends GUIAbstracta implements Serializable {
         final InputText ingresoCodigoPostal = new InputText();
         final InputText ingresoDireccion = new InputText();
         final InputText ingresoNumeroTelefono = new InputText();
-        final SelectOneMenu ingresoTipoTrabajador = new SelectOneMenu();
-        final SelectOneMenu ingresoTituloProfesional = new SelectOneMenu();
+        final SelectOneMenu ingresoTipoTrabajador = UtilidadesGUI.crearCombobox(tipoTrabajadorFacade);
+        final SelectOneMenu ingresoTituloProfesional = UtilidadesGUI.crearCombobox(tituloProfesionalFacade);
         final SelectOneMenu ingresoGenero = new SelectOneMenu();
         final Calendar ingresoFechaNacimiento = new Calendar();
-        
-        Iterator<TipoTrabajador> tiposTrabajadores = tipoTrabajadorFacade.findAll().iterator();
-        ArrayList<String> itemsTipoTrabajador = new ArrayList();
-        while (tiposTrabajadores.hasNext()) {
-            itemsTipoTrabajador.add(tiposTrabajadores.next().getTtnombre());
-        }
-        UISelectItems opcionesTipoTrabajador = new UISelectItems();
-        opcionesTipoTrabajador.setValue(itemsTipoTrabajador);
-        ingresoTipoTrabajador.getChildren().add(opcionesTipoTrabajador);
-        
-        Iterator<TituloProfesional> titulosProfesionales = tituloProfesionalFacade.findAll().iterator();
-        ArrayList<String> itemsTituloProfesional = new ArrayList();
-        while (titulosProfesionales.hasNext()) {
-            itemsTituloProfesional.add(titulosProfesionales.next().getTpnombre());
-        }
-        UISelectItems opcionesTituloProfesional = new UISelectItems();
-        opcionesTituloProfesional.setValue(itemsTituloProfesional);
-        ingresoTituloProfesional.getChildren().add(opcionesTituloProfesional);
         
         ArrayList<String> itemsGenero = new ArrayList();
         itemsGenero.add("Hombre");
@@ -299,14 +272,7 @@ public class EmpleadoGUI extends GUIAbstracta implements Serializable {
                     } 
                 }
                 
-                Iterator<TituloProfesional> iteradorTitulosProfesionales = tituloProfesionalFacade.findAll().iterator();
-                while (iteradorTitulosProfesionales.hasNext()) {
-                    TituloProfesional tp = iteradorTitulosProfesionales.next();
-                    if (tp.getTpnombre().equals(ingresoTituloProfesional.getValue())) {
-                        e.setTpid(tp);
-                        break;
-                    }
-                }
+                e.setTpid(tituloProfesionalFacade.find(ingresoTituloProfesional.getValue()));
                 
                 empleadoFacade.create(e);
             }
