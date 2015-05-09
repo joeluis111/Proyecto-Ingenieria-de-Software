@@ -113,12 +113,12 @@ public class TipoProveedor implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        return this.getTproid();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return this.getTpronombre();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -212,12 +212,12 @@ public class Evento implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        return this.getEvid();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return this.getEvnombre();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

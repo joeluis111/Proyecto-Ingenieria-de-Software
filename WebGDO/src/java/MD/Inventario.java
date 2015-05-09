@@ -120,12 +120,12 @@ public class Inventario implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        return this.getInventarioPK();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return "Inventario de " + this.getProyecto().getPronombre();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

@@ -129,12 +129,12 @@ public class Proveedor implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        return this.getProvid();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return this.getProvnombre();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

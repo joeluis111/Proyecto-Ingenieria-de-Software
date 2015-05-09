@@ -140,12 +140,12 @@ public class HistoriaCliente implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        return this.getHcid();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return "Historia " + Integer.toString(this.getHcid());
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

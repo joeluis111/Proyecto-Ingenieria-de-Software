@@ -142,12 +142,12 @@ public class HistoriaInventaria implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        return this.getHistid();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getCadenaDesplegable() {
-        return "Historia Inventaria " + Integer.toString(this.getHistid());
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
