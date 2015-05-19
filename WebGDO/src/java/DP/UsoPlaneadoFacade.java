@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.USO_PLANEADO;
+import MD.EntityType;
+import static MD.EntityType.USO_PLANEADO;
 import MD.UsoPlaneado;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.CLIENTE;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -143,12 +144,17 @@ public class Cliente implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getCliid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getClinombres() + " " + this.getCliapellidos();
+    }
+
+    @Override
+    public EntityType getType() {
+        return CLIENTE;
     }
     
 }

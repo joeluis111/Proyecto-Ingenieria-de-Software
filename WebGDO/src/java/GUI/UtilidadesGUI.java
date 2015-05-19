@@ -12,6 +12,10 @@ import java.util.Collection;
 import java.util.Iterator;
 import javax.faces.component.UISelectItems;
 import javax.faces.component.html.HtmlOutputText;
+import javax.faces.component.html.HtmlPanelGrid;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ActionListener;
 import javax.faces.model.SelectItem;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.outputlabel.OutputLabel;
@@ -53,5 +57,28 @@ public class UtilidadesGUI {
         itemsSeleccionables.setValue(items);
         combobox.getChildren().add(itemsSeleccionables);
         return combobox;
+    }
+    
+    public static HtmlPanelGrid crearBorrarEditar(final AbstractFacade facade, final Entidad e, ActionListener accionEditar) {
+        HtmlPanelGrid cuadricula = new HtmlPanelGrid();
+        
+        CommandButton borrar = crearBoton("Borrar");
+        CommandButton editar = crearBoton("Editar");
+        
+        borrar.addActionListener(new ActionListener() {
+
+            @Override
+            public void processAction(ActionEvent event) throws AbortProcessingException {
+                facade.remove(e);
+            }
+        });
+        
+        editar.addActionListener(accionEditar);
+        
+        cuadricula.setColumns(2);
+        cuadricula.getChildren().add(borrar);
+        cuadricula.getChildren().add(editar);
+        
+        return cuadricula;
     }
 }

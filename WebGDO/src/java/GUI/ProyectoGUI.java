@@ -6,7 +6,7 @@
 package GUI;
 
 import DP.AbstractFacade;
-import static DP.EntityType.PROYECTO;
+import static MD.EntityType.PROYECTO;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.component.html.HtmlOutputLabel;

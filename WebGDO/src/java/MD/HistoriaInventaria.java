@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.HISTORIA_INVENTARIA;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -142,12 +143,17 @@ public class HistoriaInventaria implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getHistid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.toString();
+    }
+
+    @Override
+    public EntityType getType() {
+        return HISTORIA_INVENTARIA;
     }
     
 }

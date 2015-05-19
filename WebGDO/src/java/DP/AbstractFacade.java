@@ -5,6 +5,7 @@
  */
 package DP;
 
+import MD.EntityType;
 import MD.Entidad;
 import java.util.List;
 import javax.persistence.EntityManager;

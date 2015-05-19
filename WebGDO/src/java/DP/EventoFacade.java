@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.EVENTO;
+import MD.EntityType;
+import static MD.EntityType.EVENTO;
 import MD.Evento;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

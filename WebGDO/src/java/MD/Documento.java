@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.DOCUMENTO;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -148,12 +149,17 @@ public class Documento implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getDocid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getDocdescripcion();
+    }
+
+    @Override
+    public EntityType getType() {
+        return DOCUMENTO;
     }
     
 }

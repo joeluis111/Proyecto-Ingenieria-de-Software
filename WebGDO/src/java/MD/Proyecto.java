@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.PROYECTO;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -146,12 +147,17 @@ public class Proyecto implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getProid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getPronombre();
+    }
+
+    @Override
+    public EntityType getType() {
+        return PROYECTO;
     }
     
 }

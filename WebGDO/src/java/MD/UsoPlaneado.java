@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.USO_PLANEADO;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -120,12 +121,17 @@ public class UsoPlaneado implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getUsoPlaneadoPK();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.toString();
+    }
+
+    @Override
+    public EntityType getType() {
+        return USO_PLANEADO;
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.PROVEEDOR;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -129,12 +130,17 @@ public class Proveedor implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getProvid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getProvnombre();
+    }
+
+    @Override
+    public EntityType getType() {
+        return PROVEEDOR;
     }
     
 }

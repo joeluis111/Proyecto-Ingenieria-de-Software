@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.TIPO_MATERIAL;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -125,12 +126,17 @@ public class TipoMaterial implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getTmid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getTmnombre();
+    }
+
+    @Override
+    public EntityType getType() {
+        return TIPO_MATERIAL;
     }
     
 }

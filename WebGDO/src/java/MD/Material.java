@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.MATERIAL;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -160,12 +161,17 @@ public class Material implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getMatid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getMatnombre();
+    }
+
+    @Override
+    public EntityType getType() {
+        return MATERIAL;
     }
     
 }

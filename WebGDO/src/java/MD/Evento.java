@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.EVENTO;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -212,12 +213,17 @@ public class Evento implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getEvid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getEvnombre();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EVENTO;
     }
     
 }

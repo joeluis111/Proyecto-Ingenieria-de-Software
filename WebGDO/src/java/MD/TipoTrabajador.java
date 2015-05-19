@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.TIPO_TRABAJADOR;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -118,6 +119,11 @@ public class TipoTrabajador implements Serializable, Entidad {
     @Override
     public String getCadenaDesplegable() {
         return this.getTtnombre();
+    }
+
+    @Override
+    public EntityType getType() {
+        return TIPO_TRABAJADOR;
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.EMPLEADO;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -243,12 +244,17 @@ public class Empleado implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getEmpid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getEmpnombres() + " " + this.getEmpapellidos();
+    }
+
+    @Override
+    public EntityType getType() {
+        return EMPLEADO;
     }
     
 }

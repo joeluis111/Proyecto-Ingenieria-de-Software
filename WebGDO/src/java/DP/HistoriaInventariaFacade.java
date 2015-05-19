@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.HISTORIA_INVENTARIA;
+import MD.EntityType;
+import static MD.EntityType.HISTORIA_INVENTARIA;
 import MD.HistoriaInventaria;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

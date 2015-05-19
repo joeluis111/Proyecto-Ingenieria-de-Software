@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.INVENTARIO;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -120,12 +121,17 @@ public class Inventario implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getInventarioPK();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.toString();
+    }
+
+    @Override
+    public EntityType getType() {
+        return INVENTARIO;
     }
     
 }

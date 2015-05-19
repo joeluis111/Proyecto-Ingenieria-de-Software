@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.HISTORIA_TRABAJO;
+import MD.EntityType;
+import static MD.EntityType.HISTORIA_TRABAJO;
 import MD.HistoriaTrabajo;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

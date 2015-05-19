@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.CALENDARIO;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -105,12 +106,17 @@ public class Calendario implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getCalid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Calendario de " + this.getProid().getPronombre();
+    }
+
+    @Override
+    public EntityType getType() {
+        return CALENDARIO;
     }
     
 }

@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.TIPO_DOCUMENTO;
+import MD.EntityType;
+import static MD.EntityType.TIPO_DOCUMENTO;
 import MD.TipoDocumento;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

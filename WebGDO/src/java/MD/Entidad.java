@@ -12,4 +12,5 @@ package MD;
 public interface Entidad {
     Object getIdentidad();
     String getCadenaDesplegable();
+    EntityType getType();
 }

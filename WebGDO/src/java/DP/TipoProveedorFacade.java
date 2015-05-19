@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.TIPO_PROVEEDOR;
+import MD.EntityType;
+import static MD.EntityType.TIPO_PROVEEDOR;
 import MD.TipoProveedor;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

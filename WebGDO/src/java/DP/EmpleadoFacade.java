@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.EMPLEADO;
+import MD.EntityType;
+import static MD.EntityType.EMPLEADO;
 import MD.Empleado;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

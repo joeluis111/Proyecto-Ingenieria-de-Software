@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.TITULO_PROFESIONAL;
+import MD.EntityType;
+import static MD.EntityType.TITULO_PROFESIONAL;
 import MD.TituloProfesional;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

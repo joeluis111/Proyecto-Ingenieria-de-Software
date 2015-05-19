@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.TIPO_PROVEEDOR;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -113,12 +114,17 @@ public class TipoProveedor implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getTproid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getTpronombre();
+    }
+
+    @Override
+    public EntityType getType() {
+        return TIPO_PROVEEDOR;
     }
     
 }

@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.INVENTARIO;
+import MD.EntityType;
+import static MD.EntityType.INVENTARIO;
 import MD.Inventario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

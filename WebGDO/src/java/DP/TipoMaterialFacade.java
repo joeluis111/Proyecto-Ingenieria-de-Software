@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.TIPO_MATERIAL;
+import MD.EntityType;
+import static MD.EntityType.TIPO_MATERIAL;
 import MD.TipoMaterial;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

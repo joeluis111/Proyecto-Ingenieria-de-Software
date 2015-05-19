@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.PROYECTO;
+import MD.EntityType;
+import static MD.EntityType.PROYECTO;
 import MD.Proyecto;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

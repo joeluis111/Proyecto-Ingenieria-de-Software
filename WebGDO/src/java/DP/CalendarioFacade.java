@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.CALENDARIO;
+import MD.EntityType;
+import static MD.EntityType.CALENDARIO;
 import MD.Calendario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

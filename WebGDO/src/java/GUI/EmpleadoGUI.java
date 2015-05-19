@@ -7,7 +7,7 @@ package GUI;
 
 import DP.AbstractFacade;
 import DP.EmpleadoFacade;
-import static DP.EntityType.EMPLEADO;
+import static MD.EntityType.EMPLEADO;
 import DP.TipoTrabajadorFacade;
 import DP.TituloProfesionalFacade;
 import MD.Empleado;
@@ -153,17 +153,7 @@ public class EmpleadoGUI extends GUIAbstracta implements Serializable {
         cuadricula.getChildren().add(UtilidadesGUI.crearTexto("Número de Teléfono"));
         cuadricula.getChildren().add(UtilidadesGUI.crearTexto(e.getEmpnumerotelefono()));
         
-        cuadricula.getChildren().add(crearBorrarEditar(e));
-        
-        return cuadricula;
-    }
-    
-    private UIComponent crearBorrarEditar(Empleado e) {
-        HtmlPanelGrid cuadricula = new HtmlPanelGrid();
-        cuadricula.setColumns(2);
-        
-        cuadricula.getChildren().add(UtilidadesGUI.crearBoton("Borrar"));
-        cuadricula.getChildren().add(UtilidadesGUI.crearBoton("Editar"));
+        cuadricula.getChildren().add(UtilidadesGUI.crearBorrarEditar(empleadoFacade, e, null));
         
         return cuadricula;
     }

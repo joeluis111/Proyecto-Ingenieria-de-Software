@@ -5,7 +5,8 @@
  */
 package DP;
 
-import static DP.EntityType.HISTORIA_CLIENTE;
+import MD.EntityType;
+import static MD.EntityType.HISTORIA_CLIENTE;
 import MD.HistoriaCliente;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

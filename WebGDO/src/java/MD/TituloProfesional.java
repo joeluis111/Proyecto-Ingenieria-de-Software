@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.TITULO_PROFESIONAL;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -119,6 +120,11 @@ public class TituloProfesional implements Serializable, Entidad {
     @Override
     public String getCadenaDesplegable() {
         return this.getTpnombre();
+    }
+
+    @Override
+    public EntityType getType() {
+        return TITULO_PROFESIONAL;
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package MD;
 
+import static MD.EntityType.HISTORIA_TRABAJO;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -140,12 +141,17 @@ public class HistoriaTrabajo implements Serializable, Entidad {
 
     @Override
     public Object getIdentidad() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.getHtid();
     }
 
     @Override
     public String getCadenaDesplegable() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.toString();
+    }
+
+    @Override
+    public EntityType getType() {
+        return HISTORIA_TRABAJO;
     }
     
 }
